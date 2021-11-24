@@ -1,0 +1,14 @@
+//
+// Created by ruben on 24/11/2021.
+//
+
+#ifndef AIRPORTMANAGEMENT_AED_PROJECT_SERVICE_H
+#define AIRPORTMANAGEMENT_AED_PROJECT_SERVICE_H
+
+
+class Service {
+
+};
+
+
+#endif //AIRPORTMANAGEMENT_AED_PROJECT_SERVICE_H
