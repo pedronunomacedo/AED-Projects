@@ -1,5 +1,7 @@
 #include <iostream>
 #include <windows.h>
+#include "Tests/Flight.h"
+
 
 using namespace std;
 

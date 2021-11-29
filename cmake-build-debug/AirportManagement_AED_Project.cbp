@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/ruben/AirportManagement_AED_Project/Tests/Date.h">
+			<Option target="AirportManagement_AED_Project"/>
+		</Unit>
 		<Unit filename="C:/Users/ruben/AirportManagement_AED_Project/Tests/Flight.cpp">
 			<Option target="AirportManagement_AED_Project"/>
 		</Unit>
