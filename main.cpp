@@ -50,25 +50,30 @@ void settingsMenu(){
 
 int main() {
     cout << "Welcome to MYFLY Airline !" << endl << endl ;
-    int choice;
+    string choice;
+    bool validInput;
     do{
         cout << "Menu\n\n";
         cout << "1 - User HelpDesk\n";
         cout << "2 - App Settings\n";
         cout << "0 - Exit App\n";
         cin >> choice;
-        cout << endl;
-        if (!cin.good() || cin.eof())
-            break;
-        system("cls");
-        switch (choice) {
+        do {
+            if (choice != "01" && choice != "1" && choice != "02" && choice != "2" && choice != "00" && choice != "0") {
+                cout << "Invalid input! Please input another option: ";
+                cin >> choice;
+                validInput = false;
+            } else {validInput = true; }
+        } while (!validInput);
+        //system("cls");
+        switch (stoi(choice)) {
             case 1 : userMenu(); break;
             case 2 : settingsMenu(); break;
             case 3 : exit(0);
             default : break;
         }
         system("cls");
-    }while (choice != 0);
+    } while (stoi(choice) != 0);
 
     return 0;
 }
