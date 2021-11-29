@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" C:\Users\ruben\AirportManagement_AED_Project
+"C:\Program Files\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" C:\Users\pedro\Desktop\University\Year2\Semester1\AEDA\1st_Project\AirportManagement_AED_Project
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/ruben/AirportManagement_AED_Project/cmake-build-debug
+-- Build files have been written to: C:/Users/pedro/Desktop/University/Year2/Semester1/AEDA/1st_Project/AirportManagement_AED_Project/cmake-build-debug

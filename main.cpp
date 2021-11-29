@@ -20,7 +20,6 @@ void userMenu() {
         switch (userChoice) {
             case 1 : cout << "Welcome to Check-in\n"; Sleep(500); break;
             case 2 : cout << "For what country\n"; Sleep(500); break;
-            case 0 : break;
             default: break;
         }
         system("cls");
@@ -43,7 +42,6 @@ void settingsMenu(){
             case 1 : cout << "Flights : \n"; Sleep(500); break;
             case 2 : cout << "Number of Flight to add\n"; Sleep(500); break;
             case 3 : cout << "Number of Flight to remove\n"; Sleep(500); break;
-            case 0 : break;
             default: break;
         }
         system("cls");
