@@ -4,7 +4,8 @@
 
 #ifndef AIRPORTMANAGEMENT_AED_PROJECT_DATE_H
 #define AIRPORTMANAGEMENT_AED_PROJECT_DATE_H
-
+#include <iostream>
+using namespace std;
 
 class Date {
 public:
