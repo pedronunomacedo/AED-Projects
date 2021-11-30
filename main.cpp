@@ -1,8 +1,7 @@
 #include <iostream>
+#include <string>
 #include <windows.h>
 #include "Tests/Flight.h"
-
-
 using namespace std;
 
 
@@ -20,6 +19,7 @@ void userMenu() {
         switch (userChoice) {
             case 1 : cout << "Welcome to Check-in\n"; Sleep(500); break;
             case 2 : cout << "For what country\n"; Sleep(500); break;
+            case 0 :
             default: break;
         }
         system("cls");
@@ -39,37 +39,50 @@ void settingsMenu(){
             break;
         system("cls");
         switch (setChoice) {
+            case 0 : break; // When the choice is '0' it needs to go back to the initial Menu (SOLVE THIS!)
             case 1 : cout << "Flights : \n"; Sleep(500); break;
             case 2 : cout << "Number of Flight to add\n"; Sleep(500); break;
             case 3 : cout << "Number of Flight to remove\n"; Sleep(500); break;
             default: break;
         }
         system("cls");
-    }while (setChoice != 0);
+    } while (setChoice != 0);
+}
+
+/**
+ * Asks for the user to enter an option presented in the initial Menu and checks the the input is valid (in this case,
+ * if it is the number 0, 1, or 2 and if it's an integer number)
+ * @return This function returns the choice of the user in the initial menu.
+ */
+string initialMenu() {
+    string choice;
+
+    cout << "Menu\n\n";
+    cout << "1 - User HelpDesk\n";
+    cout << "2 - App Settings\n";
+    cout << "0 - Exit App\n";
+    cout << "Option: ";
+    cin >> choice;
+
+    do {
+        if (choice == "0" || choice == "00" || choice == "1" || choice == "01" || choice == "2" || choice == "02" ) { break; }
+        cout << "Invalid input! Please input another option: ";
+        cin >> choice;
+    } while(true);
+    cout << endl;
+
+    return choice;
 }
 
 int main() {
     cout << "Welcome to MYFLY Airline !" << endl << endl ;
-    string choice;
-    bool validInput;
+    string choice = initialMenu();
     do{
-        cout << "Menu\n\n";
-        cout << "1 - User HelpDesk\n";
-        cout << "2 - App Settings\n";
-        cout << "0 - Exit App\n";
-        cin >> choice;
-        do {
-            if (choice != "01" && choice != "1" && choice != "02" && choice != "2" && choice != "00" && choice != "0") {
-                cout << "Invalid input! Please input another option: ";
-                cin >> choice;
-                validInput = false;
-            } else {validInput = true; }
-        } while (!validInput);
         //system("cls");
         switch (stoi(choice)) {
+            case 0 : exit(0);
             case 1 : userMenu(); break;
             case 2 : settingsMenu(); break;
-            case 3 : exit(0);
             default : break;
         }
         system("cls");

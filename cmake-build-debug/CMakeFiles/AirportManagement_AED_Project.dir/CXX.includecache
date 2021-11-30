@@ -19,6 +19,8 @@ C:/Users/pedro/Desktop/University/Year2/Semester1/AEDA/1st_Project/AirportManage
 C:/Users/pedro/Desktop/University/Year2/Semester1/AEDA/1st_Project/AirportManagement_AED_Project/main.cpp
 iostream
 -
+string
+-
 windows.h
 -
 Tests/Flight.h
