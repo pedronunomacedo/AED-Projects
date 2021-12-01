@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <vector>
 #include "Tests/Flight.h"
 
 
@@ -126,6 +127,7 @@ void mainMenu(){
 }
 
 int main() {
+    vector<Flight> flights;
     cout << "Welcome to MYFLY Airline !\n\n";
     Sleep(600);
 

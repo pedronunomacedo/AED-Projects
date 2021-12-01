@@ -16,9 +16,11 @@ class Flight {
 private:
     int flightNumber;
     Date departureDate;     //criar classe date, para poder usar como objeto !!
-    int flightTime;
+    int flightTime; // flight duration
     string origin;
     string destination;
+public:
+
 };
 
 
