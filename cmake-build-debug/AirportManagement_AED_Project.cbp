@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/Company.cpp">
+			<Option target="AirportManagement_AED_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/Company.h">
+			<Option target="AirportManagement_AED_Project"/>
+		</Unit>
 		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/Date.h">
 			<Option target="AirportManagement_AED_Project"/>
 		</Unit>
@@ -105,6 +111,12 @@
 			<Option target="AirportManagement_AED_Project"/>
 		</Unit>
 		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/Service.h">
+			<Option target="AirportManagement_AED_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/Ticket.cpp">
+			<Option target="AirportManagement_AED_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/Ticket.h">
 			<Option target="AirportManagement_AED_Project"/>
 		</Unit>
 		<Unit filename="C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/Tests/tests.cpp">

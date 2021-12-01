@@ -128,6 +128,30 @@ AirportManagement_AED_Project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/build
 .PHONY : AirportManagement_AED_Project/fast
 
+Tests/Company.obj: Tests/Company.cpp.obj
+.PHONY : Tests/Company.obj
+
+# target to build an object file
+Tests/Company.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Company.cpp.obj
+.PHONY : Tests/Company.cpp.obj
+
+Tests/Company.i: Tests/Company.cpp.i
+.PHONY : Tests/Company.i
+
+# target to preprocess a source file
+Tests/Company.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Company.cpp.i
+.PHONY : Tests/Company.cpp.i
+
+Tests/Company.s: Tests/Company.cpp.s
+.PHONY : Tests/Company.s
+
+# target to generate assembly for a file
+Tests/Company.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Company.cpp.s
+.PHONY : Tests/Company.cpp.s
+
 Tests/Flight.obj: Tests/Flight.cpp.obj
 .PHONY : Tests/Flight.obj
 
@@ -224,6 +248,30 @@ Tests/Service.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Service.cpp.s
 .PHONY : Tests/Service.cpp.s
 
+Tests/Ticket.obj: Tests/Ticket.cpp.obj
+.PHONY : Tests/Ticket.obj
+
+# target to build an object file
+Tests/Ticket.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Ticket.cpp.obj
+.PHONY : Tests/Ticket.cpp.obj
+
+Tests/Ticket.i: Tests/Ticket.cpp.i
+.PHONY : Tests/Ticket.i
+
+# target to preprocess a source file
+Tests/Ticket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Ticket.cpp.i
+.PHONY : Tests/Ticket.cpp.i
+
+Tests/Ticket.s: Tests/Ticket.cpp.s
+.PHONY : Tests/Ticket.s
+
+# target to generate assembly for a file
+Tests/Ticket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AirportManagement_AED_Project.dir\build.make CMakeFiles/AirportManagement_AED_Project.dir/Tests/Ticket.cpp.s
+.PHONY : Tests/Ticket.cpp.s
+
 Tests/tests.obj: Tests/tests.cpp.obj
 .PHONY : Tests/tests.obj
 
@@ -281,6 +329,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... AirportManagement_AED_Project
+	@echo ... Tests/Company.obj
+	@echo ... Tests/Company.i
+	@echo ... Tests/Company.s
 	@echo ... Tests/Flight.obj
 	@echo ... Tests/Flight.i
 	@echo ... Tests/Flight.s
@@ -293,6 +344,9 @@ help:
 	@echo ... Tests/Service.obj
 	@echo ... Tests/Service.i
 	@echo ... Tests/Service.s
+	@echo ... Tests/Ticket.obj
+	@echo ... Tests/Ticket.i
+	@echo ... Tests/Ticket.s
 	@echo ... Tests/tests.obj
 	@echo ... Tests/tests.i
 	@echo ... Tests/tests.s

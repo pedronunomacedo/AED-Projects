@@ -37,6 +37,7 @@ private:
     string origin;
     string destination;
     unsigned int occupiedPlaces;
+
 };
 
 
