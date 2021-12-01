@@ -17,13 +17,30 @@ void userMenu() {
         cout << "Option : ";
         cin >> userChoice;
         cout << endl;
-        if (cin.eof())
-            break;
-        switch (userChoice) {
-            case 1 : cout << "Welcome to Check-in\n"; Sleep(500); break;
-            case 2 : cout << "For what country\n"; Sleep(500); break;
-            case 0 : break;
-            default: cout << "Invalid Option! Try Again\n"; Sleep(400); break;
+        if (cin.fail()) {
+            cout << "Invalid Input !" << endl;
+            Sleep(400);
+            cin.clear();
+            cin.ignore(9999, '\n');
+            userChoice = -1;
+        }
+        else {
+            switch (userChoice) {
+                case 1 :
+                    cout << "Welcome to Check-in\n";
+                    Sleep(500);
+                    break;
+                case 2 :
+                    cout << "For what country\n";
+                    Sleep(500);
+                    break;
+                case 0 :
+                    break;
+                default:
+                    cout << "Invalid Option! Try Again\n";
+                    Sleep(400);
+                    break;
+            }
         }
     }while (userChoice != 0);
 }
@@ -40,17 +57,38 @@ void settingsMenu(){
         cout << "Option : ";
         cin >> setChoice;
         cout << endl;
-        if (cin.eof())
-            break;
-        switch (setChoice) {
-            case 1 : cout << "Flights : \n"; Sleep(500); break;
-            case 2 : cout << "Number of Flight to add\n"; Sleep(500); break;
-            case 3 : cout << "Number of Flight to remove\n"; Sleep(500); break;
-            case 0 : break;
-            default: cout << "Invalid Option! Try Again\n"; Sleep(400); break;
+        if (cin.fail()) {
+            cout << "Invalid Input !" << endl;
+            Sleep(400);
+            cin.clear();
+            cin.ignore(9999, '\n');
+            setChoice = -1;
         }
-    }while (setChoice != 0);
+        else {
+            switch (setChoice) {
+                case 1 :
+                    cout << "Flights : \n";
+                    Sleep(500);
+                    break;
+                case 2 :
+                    cout << "Number of Flight to add\n";
+                    Sleep(500);
+                    break;
+                case 3 :
+                    cout << "Number of Flight to remove\n";
+                    Sleep(500);
+                    break;
+                case 0 :
+                    break;
+                default:
+                    cout << "Invalid Option! Try Again\n";
+                    Sleep(400);
+                    break;
+            }
+        }
+    } while (setChoice != 0);
 }
+
 
 void mainMenu(){
     int choice;
@@ -63,13 +101,26 @@ void mainMenu(){
         cout << "Option : ";
         cin >> choice;
         cout << endl;
-        if (cin.eof())
-            break;
-        switch (choice) {
-            case 1 : userMenu(); break;
-            case 2 : settingsMenu(); break;
-            case 0 : exit(0);
-            default : cout << "Invalid Option! Try Again\n"; Sleep(400); break;
+        if (cin.fail()) {
+            cout << "Invalid Input !" << endl; Sleep(400);
+            cin.clear();
+            cin.ignore(9999, '\n');
+            choice = -1;
+        }else {
+            switch (choice) {
+                case 1 :
+                    userMenu();
+                    break;
+                case 2 :
+                    settingsMenu();
+                    break;
+                case 0 :
+                    exit(0);
+                default :
+                    cout << "Invalid Option! Try Again\n";
+                    Sleep(400);
+                    break;
+            }
         }
     }while (choice != 0);
 }
