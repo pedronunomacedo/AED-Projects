@@ -14,7 +14,7 @@ using namespace std;
 
 
 class Flight {
-
+public:
     Flight(unsigned int number,unsigned int time,Date date,string ori,string des);
     unsigned int getAvailablePlaces() const;
     unsigned int getFlightNumber() const;
@@ -26,6 +26,7 @@ class Flight {
     void setOrigin(string origin);
     void setFlightTime(unsigned int flightTime);
     void setDate(Date departuredate);
+    void setOccupiedPlaces();
     string getDestination() const;
     string getOrigin() const;
 

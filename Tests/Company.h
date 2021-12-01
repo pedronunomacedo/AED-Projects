@@ -10,10 +10,10 @@
 
 class Company {
 private:
-    vector<Plane> planes;
     vector<Passenger> passengers;
 public:
-
+    vector<Plane> planes;
+    Company();
 };
 
 

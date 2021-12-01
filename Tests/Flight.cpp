@@ -11,6 +11,7 @@ Flight::Flight(unsigned int number,unsigned int time, Date date, string ori, str
     departureDate = date;
     origin = ori;
     destination = des;
+    occupiedPlaces = 0;
 }
 
 unsigned int Flight::getAvailablePlaces() const
@@ -71,6 +72,10 @@ void Flight::setFlightTime(unsigned int flightTime)
 void Flight::setDate(Date departureDate)
 {
     this->departureDate = departureDate;
+}
+
+void Flight::setOccupiedPlaces() {
+    occupiedPlaces++;
 }
 
 

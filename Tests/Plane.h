@@ -24,12 +24,13 @@ class Plane {
     void setCapacity(unsigned int cap);
     bool checkIfIsAvailable(Date maintenanceDay, Date wantedDay);
 
+public:
+    list<Flight> flightPlan;
 private:
 
     string plate;
     string type;
     unsigned int capacity;
-    list<Flight> flightPlan;
     stack<Service> servicesDone;
     queue<Service> toDoServices;
 
