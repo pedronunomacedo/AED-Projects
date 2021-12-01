@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <windows.h>
+#include <vector>
 #include "Tests/Flight.h"
 
 
@@ -163,9 +164,13 @@ void mainMenu(){
 }
 
 int main() {
+<<<<<<< HEAD
 
     //add a read all files to init the program
 
+=======
+    vector<Flight> flights;
+>>>>>>> ca9a329bae480ef90d18a6f860a6026583b181ca
     cout << "Welcome to MYFLY Airline !\n\n";
     Sleep(600);
 
