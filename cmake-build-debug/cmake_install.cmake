@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project
+# Install script for directory: C:/Users/pedro/Desktop/University/Year2/Semester1/AEDA/1st_Project/AirportManagement_AED_Project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/pedro/Desktop/University/Year2/Semester1/AEDA/1st_Project/AirportManagement_AED_Project/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -15,8 +15,7 @@ using namespace std;
 
 
 class Plane {
-
-    Plane(string plat, string typ,unsigned int cap, list<Flight> plan, stack<Service> done, queue<Service> toDo);
+    Plane(string plat, string typ, unsigned int cap, list<Flight> plan, stack<Service> done, queue<Service> toDo);
     string getPlate() const;
     string getType() const;
     unsigned int getCapacity() const;

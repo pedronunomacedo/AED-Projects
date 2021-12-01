@@ -30,14 +30,12 @@ class Flight {
     string getOrigin() const;
 
 private:
-
     unsigned int flightNumber;
     Date departureDate = Date(0,0,0);     //criar classe date, para poder usar como objeto !!
     unsigned int flightTime;
     string origin;
     string destination;
     unsigned int occupiedPlaces;
-
 };
 
 

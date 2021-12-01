@@ -15,7 +15,7 @@ Flight::Flight(unsigned int number,unsigned int time, Date date, string ori, str
 
 unsigned int Flight::getAvailablePlaces() const
 {
-    return Plane.capacity() - occupiedPlaces;
+    return  Plane.getCapacity() - occupiedPlaces;
 }
 
 unsigned int Flight::getFlightNumber() const

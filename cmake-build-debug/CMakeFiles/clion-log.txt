@@ -1,4 +1,4 @@
-C:\Users\pedro\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\212.5457.51\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" "C:\Users\pedro\OneDrive\Documentos\Universidade\2_ano\1_semestre\Algoritmos_e_Estruturas de Dados\AirportManagement_AED_Project"
+"C:\Program Files\JetBrains\CLion 2021.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" C:\Users\pedro\Desktop\University\Year2\Semester1\AEDA\1st_Project\AirportManagement_AED_Project
 -- The C compiler identification is GNU 8.1.0
 -- The CXX compiler identification is GNU 8.1.0
 -- Detecting C compiler ABI info
@@ -13,4 +13,4 @@ C:\Users\pedro\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\212.5457.51\bin\c
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/pedro/OneDrive/Documentos/Universidade/2_ano/1_semestre/Algoritmos_e_Estruturas de Dados/AirportManagement_AED_Project/cmake-build-debug
+-- Build files have been written to: C:/Users/pedro/Desktop/University/Year2/Semester1/AEDA/1st_Project/AirportManagement_AED_Project/cmake-build-debug
