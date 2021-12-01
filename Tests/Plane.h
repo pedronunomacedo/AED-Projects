@@ -10,17 +10,30 @@
 #include "Service.h"
 #include <list>
 #include <stack>
+#include <queue>
 using namespace std;
 
 
 class Plane {
+
+    Plane(string plat, string typ,unsigned int cap, list<Flight> plan, stack<Service> done, queue<Service> toDo);
+    string getPlate() const;
+    string getType() const;
+    unsigned int getCapacity() const;
+    void setPlate(string pl);
+    void setType(string typ);
+    void setCapacity(unsigned int cap);
+    bool checkIfIsAvailable(Date maintenanceDay, Date wantedDay);
+
 private:
+
     string plate;
     string type;
-    int capacity;
+    unsigned int capacity;
     list<Flight> flightPlan;
-    list<Service> servicesDone;
-    stack<Service> toDoServices;
+    stack<Service> servicesDone;
+    queue<Service> toDoServices;
+
 };
 
 

@@ -7,18 +7,36 @@
 
 #include <iostream>
 #include "Date.h"
+#include "Plane.h"
 
 using namespace std;
 
 
 
 class Flight {
+
+    Flight(unsigned int number,unsigned int time,Date date,string ori,string des);
+    unsigned int getAvailablePlaces() const;
+    unsigned int getFlightNumber() const;
+    unsigned int getFlightTime() const;
+    unsigned int getOccupiedPlaces() const;
+    Date getDepartureDate() const;
+    void setFlightNumber(unsigned int flightNumber);
+    void setDestination(string destination);
+    void setOrigin(string origin);
+    void setFlightTime(unsigned int flightTime);
+    void setDate(Date departuredate);
+    string getDestination() const;
+    string getOrigin() const;
+
 private:
-    int flightNumber;
-    Date departureDate;     //criar classe date, para poder usar como objeto !!
-    int flightTime;
+
+    unsigned int flightNumber;
+    Date departureDate = Date(0,0,0);     //criar classe date, para poder usar como objeto !!
+    unsigned int flightTime;
     string origin;
     string destination;
+    unsigned int occupiedPlaces;
 };
 
 
