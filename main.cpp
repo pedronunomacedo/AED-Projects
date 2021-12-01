@@ -1,16 +1,53 @@
 #include <iostream>
+#include <vector>
 #include <windows.h>
 #include "Tests/Flight.h"
 
 
 using namespace std;
 
+struct passenger {
+    int ssn;
+    string name;
+};
+
+passenger checkPassenger(int ssn){              // este int depois será substituido pela class passenger
+    passenger p1, p2;
+    p1.name = "Manuel";
+    p1.ssn = 111;
+    p2.name = "Ana";
+    p2.ssn = 222;
+    vector<passenger> pasr {p1, p2};
+    for (int i = 0; i < pasr.size();i++)
+        if (ssn == pasr[i].ssn)
+            return pasr[i];
+    string name;
+    cout << "What's your Name ?\n";
+    cout << "Name : ";
+    cin >> name;
+    cout << endl;
+    passenger p3;                   //cria-se e adiciona-se o novo passenger á lista geral
+    p3.name = name;
+    p3.ssn = ssn;
+    pasr.push_back(p3);
+    return p3;                         // return a esse novo passenger
+
+}
+
 
 void userMenu() {
+    int ssn, psg;
+    cout << "What's your SSN ?\n";
+    cout << "SSN : ";
+    cin >> ssn;
+    cout << endl;
+    passenger p;
+    p = checkPassenger(ssn);
+
     int userChoice;
     do{
         system("cls");
-        cout << "UserMenu\n\n";
+        cout << "Your SSN : " << p.ssn << "Name : " << p.name << "\n\n";
         cout << "1 - Check-in\n";
         cout << "2 - Buy Ticket\n";
         cout << "0 - Return to Menu\n";
@@ -27,11 +64,11 @@ void userMenu() {
         else {
             switch (userChoice) {
                 case 1 :
-                    cout << "Welcome to Check-in\n";
+                    cout << "Welcome to Check-in\n";    //passenger p.checkIn
                     Sleep(500);
                     break;
                 case 2 :
-                    cout << "For what country\n";
+                    cout << "For what country\n";       // p.buyTicket
                     Sleep(500);
                     break;
                 case 0 :
@@ -71,7 +108,7 @@ void settingsMenu(){
                     Sleep(500);
                     break;
                 case 2 :
-                    cout << "Number of Flight to add\n";
+                    cout << "Number of Flight to add\n";        //chamar classes e dar add
                     Sleep(500);
                     break;
                 case 3 :
@@ -115,7 +152,7 @@ void mainMenu(){
                     settingsMenu();
                     break;
                 case 0 :
-                    exit(0);
+                    break;
                 default :
                     cout << "Invalid Option! Try Again\n";
                     Sleep(400);
@@ -126,10 +163,15 @@ void mainMenu(){
 }
 
 int main() {
+
+    //add a read all files to init the program
+
     cout << "Welcome to MYFLY Airline !\n\n";
     Sleep(600);
 
     mainMenu();     //call to mainMenu !
+
+    //add an update/record all modifications before quit the program
 
     return 0;
 }
