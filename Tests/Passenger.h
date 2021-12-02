@@ -6,7 +6,6 @@
 #define AIRPORTMANAGEMENT_AED_PROJECT_PASSENGER_H
 #include "Ticket.h"
 #include "Flight.h"
-#include "Company.h"
 #include<iostream>
 #include<vector>
 #include <string>
@@ -24,6 +23,8 @@ public:
     bool buyTicket();
     bool ticketExist(int numFlight);
     void checkIn(int flightNumber);
+    string getName();
+    int getSSN();
 };
 
 

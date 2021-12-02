@@ -8,11 +8,14 @@
 #include "Plane.h"
 #include "Passenger.h"
 
+
+
 class Company {
 private:
+    //vector<Plane> planes;
     vector<Passenger> passengers;
 public:
-    vector<Plane> planes;
+    Passenger checkPassenger(int ssn);
     Company();
 };
 

@@ -69,3 +69,11 @@ bool Passenger::buyTicket() {
     if (!flightExists) { return false; }
 
 }
+
+string Passenger::getName() {
+    return passengerName;
+}
+
+int Passenger::getSSN() {
+    return passengerSSN;
+}

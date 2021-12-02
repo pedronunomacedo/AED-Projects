@@ -16,7 +16,7 @@ using namespace std;
 class Flight {
 public:
     Flight(unsigned int number,unsigned int time,Date date,string ori,string des);
-    unsigned int getAvailablePlaces() const;
+    unsigned int getAvailablePlaces(string &plate) const;
     unsigned int getFlightNumber() const;
     unsigned int getFlightTime() const;
     unsigned int getOccupiedPlaces() const;
@@ -41,3 +41,4 @@ private:
 
 
 #endif //AIRPORTMANAGEMENT_AED_PROJECT_FLIGHT_H
+
