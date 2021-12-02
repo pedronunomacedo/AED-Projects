@@ -16,7 +16,6 @@ using namespace std;
 class Passenger {
 private:
     vector<Ticket> boughtTickets;
-    Ticket ticket;
     string passengerName;
     int passengerSSN;
 public:
