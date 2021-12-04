@@ -10,7 +10,7 @@
  * @param passengerName
  * @param passengerID
  */
-Passenger::Passenger(string passengerName, int passengerSSN) {
+Passenger::Passenger(string &passengerName, int &passengerSSN) {
     this->passengerName = passengerName;
     this->passengerSSN = passengerSSN;
 }
@@ -27,15 +27,27 @@ bool Passenger::ticketExist(int numFlight) {
     return false;
 }
 
+string Passenger::getName() const {
+    return passengerName;
+}
+
+int Passenger::getSSN() const {
+    return passengerSSN;
+}
+
+
+
 void Passenger::checkIn(int flightNumber) {
 
 }
 
+
+/*
 bool Passenger::buyTicket() {
     // Variables
     int flightNumber;
     bool package, flightExists = false;
-    Company company;
+
 
     // Print a todos os voos
 
@@ -69,11 +81,13 @@ bool Passenger::buyTicket() {
     if (!flightExists) { return false; }
 
 }
+*/
 
-string Passenger::getName() {
-    return passengerName;
+bool Passenger::operator==(const Passenger &p) const {
+    if (passengerSSN == p.getSSN() && passengerName == p.getName())
+        return true;
+    return false;
 }
 
-int Passenger::getSSN() {
-    return passengerSSN;
-}
+
+

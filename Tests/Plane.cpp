@@ -4,7 +4,7 @@
 
 #include "Plane.h"
 
-Plane::Plane(string plat, string typ,unsigned int cap, list<Flight> plan, stack<Service> done, queue<Service> toDo)
+Plane::Plane(int plat, string typ, unsigned int cap, vector<Flight> &plan, vector<Service> &done, queue<Service> &toDo)
 {
     plate = plat;
     type = typ;
@@ -14,18 +14,33 @@ Plane::Plane(string plat, string typ,unsigned int cap, list<Flight> plan, stack<
     toDoServices = toDo;
 }
 
-string Plane::getPlate() const
-{
+bool Plane::operator==(const Plane &p)const{
+    if (plate == p.getPlate())
+        return true;
+    return false;
+}
+
+vector<Flight> Plane::getFlights()const{
+    return flightPlan;
+}
+
+queue<Service> Plane::getToDoServ()const{
+    return toDoServices;
+}
+
+vector<Service> Plane::getDoneServ()const{
+    return servicesDone;
+}
+
+int Plane::getPlate()const{
     return plate;
 }
 
-string Plane::getType() const
-{
+string Plane::getType()const{
     return type;
 }
 
-unsigned int Plane::getCapacity() const
-{
+unsigned int Plane::getCapacity()const{
     return capacity;
 }
 
@@ -43,7 +58,7 @@ bool Plane::checkIfIsAvailable( Date maintenanceDay, Date wantedDay )
     }
 }
 
-void Plane::setPlate(string pl)
+void Plane::setPlate(int pl)         //passar por referencia sempre q possivel para evitar copias desnecessarias !!
 {
     plate = pl;
 }

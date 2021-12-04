@@ -10,10 +10,11 @@
 using namespace std;
 
 class Service {
-    Service(string &type, Date serviceDate, string &employeeName);
-    string getType();
-    Date getDate();
-    string getEmployeeName();
+public:
+    Service(string &type, Date &serviceDate, string &employeeName);
+    string getEmployeeName()const;
+    Date getDate()const;
+    string getType()const;
 private:
     string type;
     Date serviceDate = Date(0, 0, 0);

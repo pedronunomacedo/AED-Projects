@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "Date.h"
-#include "Plane.h"
+
 
 using namespace std;
 
@@ -17,18 +17,19 @@ class Flight {
 public:
     Flight(unsigned int number,unsigned int time,Date date,string ori,string des);
     unsigned int getAvailablePlaces(string &plate) const;
-    unsigned int getFlightNumber() const;
-    unsigned int getFlightTime() const;
     unsigned int getOccupiedPlaces() const;
-    Date getDepartureDate() const;
     void setFlightNumber(unsigned int flightNumber);
     void setDestination(string destination);
     void setOrigin(string origin);
     void setFlightTime(unsigned int flightTime);
     void setDate(Date departuredate);
     void setOccupiedPlaces();
-    string getDestination() const;
-    string getOrigin() const;
+    string getOrigin()const;
+    string getDestination()const;
+    Date getDepartureDate()const;
+    unsigned int getFlightNumber()const;
+    unsigned int getDuration()const;
+    void show(){cout << flightNumber << " " << departureDate.getDate() << " " << flightTime << " " << origin << " " << destination << endl;};
 
 private:
     unsigned int flightNumber;

@@ -18,13 +18,14 @@ private:
     string passengerName;
     int passengerSSN;
 public:
-    Passenger(string passengerName, int passengerSSN);
+    Passenger(string &passengerName, int &passengerSSN);
+    bool operator==(const Passenger &p)const;
     void setTicket(Ticket ticket);
     bool buyTicket();
     bool ticketExist(int numFlight);
     void checkIn(int flightNumber);
-    string getName();
-    int getSSN();
+    string getName()const;
+    int getSSN()const;
 };
 
 

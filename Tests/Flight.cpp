@@ -4,8 +4,7 @@
 
 #include "Flight.h"
 
-Flight::Flight(unsigned int number,unsigned int time, Date date, string ori, string des)
-{
+Flight::Flight(unsigned int number,unsigned int time,Date date,string ori,string des){
     flightNumber = number;
     flightTime = time;
     departureDate = date;
@@ -14,42 +13,35 @@ Flight::Flight(unsigned int number,unsigned int time, Date date, string ori, str
     occupiedPlaces = 0;
 }
 
-unsigned int Flight::getAvailablePlaces(string &plate) const
-{
+unsigned int Flight::getAvailablePlaces(string &plate) const{
     return  0;//Plane.getCapacity() - occupiedPlaces;
 }
 
-unsigned int Flight::getFlightNumber() const
-{
+unsigned int Flight::getFlightNumber() const{
     return flightNumber;
 }
 
-unsigned int Flight::getFlightTime() const
-{
+unsigned int Flight::getDuration() const{
     return flightTime;
 }
 
-unsigned int Flight::getOccupiedPlaces() const
-{
+unsigned int Flight::getOccupiedPlaces() const{
     return occupiedPlaces;
 }
 
-string Flight::getDestination() const
-{
+string Flight::getDestination() const{
     return destination;
 }
 
-string Flight::getOrigin() const
-{
+string Flight::getOrigin() const{
     return origin;
 }
 
-Date Flight::getDepartureDate() const
-{
+Date Flight::getDepartureDate() const{
     return departureDate;
 }
 
-void Flight::setFlightNumber( unsigned int flightNumber )
+void Flight::setFlightNumber( unsigned int flightNumber )           //passar por referencia !!
 {
     this->flightNumber = flightNumber;
 }

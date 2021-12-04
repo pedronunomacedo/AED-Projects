@@ -4,21 +4,21 @@
 
 #include "Service.h"
 
-Service::Service(string &type, Date serviceDate, string &employeeName){
+Service::Service(string &type, Date &serviceDate, string &employeeName){
     this->type = type;
     this->serviceDate = serviceDate;
     this->employeeName = employeeName;
 }
 
-string Service::getType() {
+string Service::getType()const {
     return type;
 }
 
-Date Service::getDate() {
+Date Service::getDate()const {
     return serviceDate;
 }
 
-string Service::getEmployeeName() {
+string Service::getEmployeeName()const {
     return employeeName;
 }
 

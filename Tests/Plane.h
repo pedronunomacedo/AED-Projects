@@ -8,31 +8,32 @@
 #include <iostream>
 #include "Flight.h"
 #include "Service.h"
-#include <list>
-#include <stack>
+#include <vector>
 #include <queue>
 using namespace std;
 
 
 class Plane {
-    Plane(string plat, string typ, unsigned int cap, list<Flight> plan, stack<Service> done, queue<Service> toDo);
-    string getPlate() const;
-    string getType() const;
-    unsigned int getCapacity() const;
-    void setPlate(string pl);
+public:
+    Plane(int plat, string typ, unsigned int cap, vector<Flight> &plan, vector<Service> &done, queue<Service> &toDo);
+    bool operator==(const Plane &p)const;
+    vector<Flight> getFlights()const;
+    queue<Service> getToDoServ()const;
+    vector<Service> getDoneServ()const;
+    unsigned int getCapacity()const;
+    string getType()const;          //varios metodos podem ser definidos como const
+    int getPlate()const;
+    void setPlate(int pl);
     void setType(string typ);
     void setCapacity(unsigned int cap);
     bool checkIfIsAvailable(Date maintenanceDay, Date wantedDay);
-
-public:
-    list<Flight> flightPlan;
 private:
-
-    string plate;
+    int plate;
     string type;
     unsigned int capacity;
-    stack<Service> servicesDone;
+    vector<Service> servicesDone;           //mudar para vetor ou list fica mais pratico
     queue<Service> toDoServices;
+    vector<Flight> flightPlan;
 
 };
 
