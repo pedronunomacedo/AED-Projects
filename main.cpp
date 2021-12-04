@@ -24,8 +24,8 @@ int main() {
 
     comp.mainMenu();     // start the program
 
-    ofstream planesR ("C:/Users/ruben/AirportManagement_AED_Project/Tests/PLANES.txt");
-    ofstream passengersR ("C:/Users/ruben/AirportManagement_AED_Project/Tests/PASSENGERS.txt");
+    ofstream planesR ("PLANES.txt");
+    ofstream passengersR ("PASSENGERS.txt");
 
     comp.record(planesR, passengersR);      // load the changes commit in the .txt file
 

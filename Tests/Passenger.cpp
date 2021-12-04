@@ -42,46 +42,18 @@ void Passenger::checkIn(int flightNumber) {
 }
 
 
-/*
+
 bool Passenger::buyTicket() {
     // Variables
-    int flightNumber;
-    bool package, flightExists = false;
 
 
     // Print a todos os voos
 
     // Perguntar qual é o número do voo que deseja
-    cout << "What's the flight number you want to buy? ";
-    cin >> flightNumber;
 
     // Verificar se o voo não está lotado (flight.getAvaiablePlaces() > 0)
-    for (Plane plane : company.planes) {
-        for (Flight flight : plane.flightPlan) {
-            if (flightNumber == flight.getFlightNumber()) {
-                Flight myFlight(flightNumber, flight.getFlightTime(), flight.get);
-                flightExists = true;
-                if (flight.getAvailablePlaces() <= 0) {
-                    cout << "SOLD OUT!";
-                    return false;
-                }
-
-                // Chamar a função setTicket() da classe Passenger, caso exista voo com lugares disponíveis
-                cout << "The flight is available! Do you want to take package [true or false] ? ";
-                cin >> package;
-                Ticket ticket1(package, flightNumber);
-                setTicket(ticket1);
-                // Incrementar occupiedPlaces
-                flight.setOccupiedPlaces();
-                return true;
-            }
-        }
-    }
-
-    if (!flightExists) { return false; }
 
 }
-*/
 
 bool Passenger::operator==(const Passenger &p) const {
     if (passengerSSN == p.getSSN() && passengerName == p.getName())

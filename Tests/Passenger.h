@@ -6,6 +6,7 @@
 #define AIRPORTMANAGEMENT_AED_PROJECT_PASSENGER_H
 #include "Ticket.h"
 #include "Flight.h"
+#include "Company.h"
 #include<iostream>
 #include<vector>
 #include <string>
