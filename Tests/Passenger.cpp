@@ -10,9 +10,11 @@
  * @param passengerName
  * @param passengerID
  */
-Passenger::Passenger(string &passengerName, int &passengerSSN) {
+Passenger::Passenger(string &passengerName, int &passengerSSN, vector<Ticket> &t) {
     this->passengerName = passengerName;
     this->passengerSSN = passengerSSN;
+    boughtTickets = t;
+
 }
 
 void Passenger::setTicket(Ticket ticket) {
@@ -37,9 +39,7 @@ int Passenger::getSSN() const {
 
 
 
-void Passenger::checkIn(int flightNumber) {
 
-}
 
 
 
@@ -56,9 +56,13 @@ bool Passenger::buyTicket() {
 }
 
 bool Passenger::operator==(const Passenger &p) const {
-    if (passengerSSN == p.getSSN() && passengerName == p.getName())
+    if (passengerSSN == p.getSSN())
         return true;
     return false;
+}
+
+vector<Ticket> Passenger::getTickets()const {
+    return boughtTickets;
 }
 
 

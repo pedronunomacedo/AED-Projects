@@ -72,27 +72,41 @@ Company::Company(ifstream &dataPl, ifstream &dataPs) {
         Plane p(numberP, typeP, capP , fls, doneServ, toDoServ);
         planes.push_back(p);
     }
-
-
     // read passengers !
-    string line;
     string sep = " - ";
-    while (getline(dataPs, line)){
+    string nP;
+    getline (dataPs, nP);
+    int nPs = stoi(nP);
+    for (int i = 0; i < nPs; i++){
+        string line;
+        getline(dataPs, line);
         stringstream ss(line);
-        int ssn;
+        vector<Ticket> tickets;
+        int ssn, nTickets;
         string name;
-        ss >> name >> sep >> ssn;
-        Passenger p(name, ssn);
+        ss >> name >> sep >> ssn >> sep >> nTickets;
+        for (int j = 0; j < nTickets; j++){
+            int nF;
+            int pck;
+            string line1;
+            getline(dataPs, line1);
+            stringstream ss1(line1);
+            ss1 >> pck >> sep >> nF;
+            tickets.push_back(Ticket(pck, nF));
+        }
+        Passenger p(name, ssn, tickets);
         passengers.push_back(p);
     }
 }
 
-bool Company::checkPassenger(){
+bool Company::checkPassenger(Passenger &p){
     int ssn;
     cout << "Enter your SSN : "; cin >> ssn;
     for (auto &k : passengers)
-        if (k.getSSN() == ssn)
+        if (k.getSSN() == ssn) {
+            p = k;
             return true;
+        }
     cout << "You are not registered !\nRegister first\n";
     return false;
 }
@@ -116,6 +130,7 @@ void Company::userMenu() {
             userChoice = -1;
         }
         else {
+            Passenger p;
             switch (userChoice) {
                 case 1 :
                     cout << "Register Passenger\n\n";
@@ -123,12 +138,14 @@ void Company::userMenu() {
                     Sleep(500);
                     break;
                 case 2 :
-                    if (checkPassenger())
+                    if (checkPassenger(p)) {
                         cout << "Welcome to Check-in\n";
+                        checkIn(p);
+                    }
                     Sleep(500);
                     break;
                 case 3 :
-                    if (checkPassenger())
+                    if (checkPassenger(p))
                         cout << "For what country\n";
                     Sleep(500);
                     break;
@@ -253,15 +270,24 @@ void Company::showAllFlights() {
 }
 
 void Company::showAllPassengers() {
-    for (auto &k : passengers)
-        cout << k.getName() << " " << k.getSSN() << endl;
+    for (auto &k : passengers) {
+        cout << k.getName() << " | " << k.getSSN() << endl;
+        for (auto &t : k.getTickets())
+            cout << t.getPackage() << " | " << t.getFlightNumber() << endl;
+    }
 }
 
 void Company::addPassenger() {      //falta ver se a repetidos !!
     int ssn; string name;
-    cout << "Passenger SSN to add : "; cin >> ssn;
-    cout << "Passenger Name to add : "; cin >> name;
-    passengers.push_back(Passenger(name,ssn));
+    cout << "Passenger SSN to add : ";cin >> ssn;cin.ignore();
+    for (auto &k : passengers)
+        if (k.getSSN() == ssn){
+            cout << "SSN already in use !\n";
+            return;
+        }
+    cout << "Passenger FirstName to add : "; getline(cin,name);
+    vector<Ticket> t{};
+    passengers.push_back(Passenger(name,ssn, t));
 }
 
 void Company::removePassenger() {
@@ -269,9 +295,13 @@ void Company::removePassenger() {
     string name;
     cout << "Passenger SSN to remove : ";
     cin >> ssn;
-    cout << "Passenger Name to remove : ";
-    cin >> name;
-    passengers.remove(Passenger(name,ssn));
+    for (auto &k : passengers)
+        if (k.getSSN() == ssn) {
+            vector<Ticket> t;
+            passengers.remove(Passenger(name, ssn, t));
+            return;
+        }
+    cout << "Passenger not found !\n";
 }
 
 
@@ -279,8 +309,12 @@ void Company::record(ofstream &dataPl, ofstream &dataPs) {
     string sep = " - ";
 
     //recording passengers
-    for (auto &p : passengers)
-        dataPs << p.getName() << sep << p.getSSN() << endl;
+    dataPs << passengers.size() << endl;
+    for (auto &p : passengers) {
+        dataPs << p.getName() << sep << p.getSSN() << sep << p.getTickets().size() << endl;
+        for (auto &t : p.getTickets())
+            dataPs << int(t.getPackage()) << sep << t.getFlightNumber() << endl;
+    }
 
     //recording planes
     dataPl << planes.size() << endl;
@@ -325,6 +359,28 @@ void Company::removeFlight() {
 
     //...
 
+}
+
+void Company::checkIn(Passenger &p) {
+
+    // fazer uma binary search para encontrar os voos correspondentes ao nFL do ticket !!
+
+    for (auto &f : getFlightsToCheckIn())
+        f.show();
+
+
+}
+
+vector<Flight> Company::getFlightsToCheckIn() const {
+    vector<Flight> flights;
+    Date date = Date();
+    for (auto &pl : planes)
+        for (auto &f : pl.getFlights())     // verificar caso a data seja nos ultimos dias do mes !!!
+            if (date.getDay() - f.getDepartureDate().getDay() <= 1 && date.getMonth() == f.getDepartureDate().getMonth() && date.getYear() == f.getDepartureDate().getYear())
+                flights.push_back(f);
+
+    // dar sort aos flights segundo o nFL !
+    return flights;
 }
 
 

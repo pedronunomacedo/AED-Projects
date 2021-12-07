@@ -19,14 +19,15 @@ private:
     string passengerName;
     int passengerSSN;
 public:
-    Passenger(string &passengerName, int &passengerSSN);
+    Passenger(string &passengerName, int &passengerSSN, vector<Ticket> &t);
+    Passenger() : boughtTickets({}), passengerSSN(0), passengerName("") {};
     bool operator==(const Passenger &p)const;
     void setTicket(Ticket ticket);
     bool buyTicket();
     bool ticketExist(int numFlight);
-    void checkIn(int flightNumber);
     string getName()const;
     int getSSN()const;
+    vector<Ticket> getTickets()const;
 };
 
 

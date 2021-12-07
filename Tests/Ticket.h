@@ -6,6 +6,8 @@
 #define AIRPORTMANAGEMENT_AED_PROJECT_TICKET_H
 
 
+#include "Flight.h"
+
 class Ticket {
 private:
     bool package;
