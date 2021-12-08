@@ -15,24 +15,25 @@ using namespace std;
 
 class Flight {
 public:
-    Flight(unsigned int number,unsigned int time,Date date,string ori,string des);
-    unsigned int getAvailablePlaces(int &plate);
-    unsigned int getOccupiedPlaces() const;
+    Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity);
+    bool operator== (const Flight &f) const;
+    unsigned int getAvailablePlaces();
     void setFlightNumber(unsigned int flightNumber);
     void setDestination(string destination);
     void setOrigin(string origin);
     void setFlightTime(unsigned int flightTime);
     void setDate(Date departuredate);
     void setOccupiedPlaces();
+    int getOccupiedPlaces();
     string getOrigin()const;
     string getDestination()const;
     Date getDepartureDate()const;
     unsigned int getFlightNumber()const;
     unsigned int getDuration()const;
-    void show(){cout << flightNumber << " " << departureDate.getDate() << " " << flightTime << " " << origin << " " << destination << endl;};
+    void show(){cout << flightNumber << " " << departureDate.getDate() << " " << flightTime << " " << origin << " " << destination << " " << getAvailablePlaces() << endl;};
 
 private:
-    unsigned int flightNumber;
+    unsigned int flightNumber, capacity;
     Date departureDate = Date(0,0,0);     //criar classe date, para poder usar como objeto !!
     unsigned int flightTime;
     string origin;

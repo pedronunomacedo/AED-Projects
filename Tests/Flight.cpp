@@ -4,17 +4,18 @@
 
 #include "Flight.h"
 
-Flight::Flight(unsigned int number,unsigned int time,Date date,string ori,string des){
+Flight::Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity){
     flightNumber = number;
     flightTime = time;
     departureDate = date;
     origin = ori;
     destination = des;
     occupiedPlaces = 0;
+    this->capacity = capacity;
 }
 
-unsigned int Flight::getAvailablePlaces(int &plate) {
-    return  0;//Plane.getCapacity() - occupiedPlaces;
+unsigned int Flight::getAvailablePlaces() {
+    return  capacity - occupiedPlaces;
 }
 
 unsigned int Flight::getFlightNumber() const{
@@ -23,10 +24,6 @@ unsigned int Flight::getFlightNumber() const{
 
 unsigned int Flight::getDuration() const{
     return flightTime;
-}
-
-unsigned int Flight::getOccupiedPlaces() const{
-    return occupiedPlaces;
 }
 
 string Flight::getDestination() const{
@@ -70,4 +67,12 @@ void Flight::setOccupiedPlaces() {
     occupiedPlaces++;
 }
 
+int Flight::getOccupiedPlaces() {
+    return occupiedPlaces;
+}
+
+bool Flight::operator==(const Flight &f) const {
+    if (flightNumber == f.getFlightNumber()) { return true;}
+    return false;
+}
 

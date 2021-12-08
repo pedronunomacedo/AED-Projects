@@ -38,7 +38,7 @@ Company::Company(ifstream &dataPl, ifstream &dataPs) {
             stringstream ss1(l);
             ss1 >> numberF >> sep >> d >> sep1 >> m >> sep1 >> y >> sep >> durationF >> sep >> origin >> sep >> dest;
             Date dateF(d,m,y);
-            Flight f (numberF,durationF,dateF,origin,dest);
+            Flight f (numberF,durationF,dateF,origin,dest, capP);
             fls.push_back(f);
         }
 
@@ -146,7 +146,7 @@ void Company::userMenu() {
                     break;
                 case 3 :
                     if (checkPassenger(p))
-                        int fNumber = buyTicket();
+                        buyTicket();
 
                     Sleep(500);
                     break;
@@ -384,13 +384,27 @@ vector<Flight> Company::getFlightsToCheckIn() const {
     return flights;
 }
 
-int Company::buyTicket() {
+void Company::buyTicket() {
+    for (auto &p : planes) {
+        for (auto &f : p.getFlights()) {
+            if (f.getFlightNumber() == 222) {
+                Flight f1 = f;
+                f1.setOccupiedPlaces();
+                cout << "occupied places of f1 = " << f1.getOccupiedPlaces() << endl;
+                replace(p.getFlights().begin(), p.getFlights().end(), f, f1);
+            }
+        }
+    }
+
+    /*
     // Variables
     bool validInput = false, fExist = false;
     int nFlight, planePlate;
 
-    // Print a todos os voos
-    showAllFlights();
+    // Print a todos os voos disponiveis
+    cout << endl;
+
+    cout << endl;
 
     // Perguntar qual é o número do voo que deseja
     cout << "What's the name of the flight you want to buy? ";
@@ -421,6 +435,7 @@ int Company::buyTicket() {
     }
 
     return nFlight;
+    */
 }
 
 
