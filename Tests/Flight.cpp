@@ -13,7 +13,7 @@ Flight::Flight(unsigned int number,unsigned int time,Date date,string ori,string
     occupiedPlaces = 0;
 }
 
-unsigned int Flight::getAvailablePlaces(string &plate) const{
+unsigned int Flight::getAvailablePlaces(int &plate) {
     return  0;//Plane.getCapacity() - occupiedPlaces;
 }
 

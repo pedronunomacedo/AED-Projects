@@ -146,7 +146,8 @@ void Company::userMenu() {
                     break;
                 case 3 :
                     if (checkPassenger(p))
-                        cout << "For what country\n";
+                        int fNumber = buyTicket();
+
                     Sleep(500);
                     break;
                 case 0 :
@@ -381,6 +382,45 @@ vector<Flight> Company::getFlightsToCheckIn() const {
 
     // dar sort aos flights segundo o nFL !
     return flights;
+}
+
+int Company::buyTicket() {
+    // Variables
+    bool validInput = false, fExist = false;
+    int nFlight, planePlate;
+
+    // Print a todos os voos
+    showAllFlights();
+
+    // Perguntar qual é o número do voo que deseja
+    cout << "What's the name of the flight you want to buy? ";
+    while (!validInput || !fExist) {
+        if (!(cin >> nFlight) || !fExist) {
+            cin.clear(); cin.ignore(1000, '\n');
+            cout << "Invalid input! Please input a number: ";
+            validInput = false;
+        }
+        else {
+            for (Plane p : planes) {
+                for (Flight f : p.getFlights()) {
+                    planePlate = p.getPlate();
+                    if (f.getFlightNumber() == nFlight) {
+                        fExist = true;
+                        if (f.getAvailablePlaces(planePlate) > 0) {
+                            validInput = true;
+                        }
+                    }
+                }
+                if (fExist || validInput) {break; }
+            }
+        }
+        if (!validInput) {
+            cout << "The plane you want its fulled! Please choose another flight: ";
+        }
+
+    }
+
+    return nFlight;
 }
 
 

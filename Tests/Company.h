@@ -32,6 +32,7 @@ private:
     void settingsMenu();
     void showAllFlights();
     void showAllPassengers();
+    int buyTicket();
     void addPlane();
     void addFlight();
     void addPassenger();
