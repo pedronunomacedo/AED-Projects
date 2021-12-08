@@ -356,10 +356,14 @@ void Company::addFlight() {
 
 }
 
-void Company::removeFlight() {
+void Company::removeFlight(Flight f1) {
+    for (auto &p : planes) {
+        for (auto &f : p.getFlights()) {
+            if (f == f1) {
 
-    //...
-
+            }
+        }
+    }
 }
 
 void Company::checkIn(Passenger &p) {
@@ -385,13 +389,13 @@ vector<Flight> Company::getFlightsToCheckIn() const {
 }
 
 void Company::buyTicket() {
-    for (auto &p : planes) {
-        for (auto &f : p.getFlights()) {
+    // Reduzir o número de lugares ocupados no flight
+    for (Plane p : planes) {
+        for (Flight f : p.getFlights()) {
             if (f.getFlightNumber() == 222) {
                 Flight f1 = f;
                 f1.setOccupiedPlaces();
-                cout << "occupied places of f1 = " << f1.getOccupiedPlaces() << endl;
-                replace(p.getFlights().begin(), p.getFlights().end(), f, f1);
+                remove(p.getFlights().begin(), )
             }
         }
     }

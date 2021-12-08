@@ -37,7 +37,7 @@ private:
     void addFlight();
     void addPassenger();
     void removePlane();
-    void removeFlight();
+    void removeFlight(Flight f1);
     void removePassenger();
     void checkIn(Passenger &p);
 
