@@ -10,16 +10,17 @@
 #include "Service.h"
 #include <vector>
 #include <queue>
+#include <list>
 using namespace std;
 
 
 class Plane {
 public:
-    Plane(int plat, string typ, unsigned int cap, vector<Flight> &plan, vector<Service> &done, queue<Service> &toDo);
+    Plane(int plat, string typ, unsigned int cap, list<Flight> &plan, vector<Service> &done, queue<Service> &toDo);
     bool operator==(const Plane &p)const;
-    vector<Flight> getFlights()const;
-    queue<Service> getToDoServ()const;
-    vector<Service> getDoneServ()const;
+    list<Flight> &getFlights();
+    queue<Service> getToDoServ();
+    vector<Service> getDoneServ();
     unsigned int getCapacity()const;
     string getType()const;          //varios metodos podem ser definidos como const
     int getPlate()const;
@@ -33,7 +34,7 @@ private:
     unsigned int capacity;
     vector<Service> servicesDone;           //mudar para vetor ou list fica mais pratico
     queue<Service> toDoServices;
-    vector<Flight> flightPlan;
+    list<Flight> flightPlan;
 
 };
 

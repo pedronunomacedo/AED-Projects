@@ -39,29 +39,13 @@ int Passenger::getSSN() const {
 
 
 
-
-
-
-
-bool Passenger::buyTicket() {
-    // Variables
-
-
-    // Print a todos os voos
-
-    // Perguntar qual é o número do voo que deseja
-
-    // Verificar se o voo não está lotado (flight.getAvaiablePlaces() > 0)
-
-}
-
 bool Passenger::operator==(const Passenger &p) const {
     if (passengerSSN == p.getSSN())
         return true;
     return false;
 }
 
-vector<Ticket> Passenger::getTickets()const {
+vector<Ticket> Passenger::getTickets() {
     return boughtTickets;
 }
 

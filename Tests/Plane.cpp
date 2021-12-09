@@ -4,7 +4,7 @@
 
 #include "Plane.h"
 
-Plane::Plane(int plat, string typ, unsigned int cap, vector<Flight> &plan, vector<Service> &done, queue<Service> &toDo)
+Plane::Plane(int plat, string typ, unsigned int cap, list<Flight> &plan, vector<Service> &done, queue<Service> &toDo)
 {
     plate = plat;
     type = typ;
@@ -20,15 +20,15 @@ bool Plane::operator==(const Plane &p)const{
     return false;
 }
 
-vector<Flight> Plane::getFlights()const{
+list<Flight>& Plane::getFlights(){
     return flightPlan;
 }
 
-queue<Service> Plane::getToDoServ()const{
+queue<Service> Plane::getToDoServ(){
     return toDoServices;
 }
 
-vector<Service> Plane::getDoneServ()const{
+vector<Service> Plane::getDoneServ(){
     return servicesDone;
 }
 

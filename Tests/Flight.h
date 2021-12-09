@@ -28,17 +28,17 @@ public:
     string getOrigin()const;
     string getDestination()const;
     Date getDepartureDate()const;
-    unsigned int getFlightNumber()const;
-    unsigned int getDuration()const;
+    int getFlightNumber()const;
+    int getDuration()const;
     void show(){cout << flightNumber << " " << departureDate.getDate() << " " << flightTime << " " << origin << " " << destination << " " << getAvailablePlaces() << endl;};
 
 private:
-    unsigned int flightNumber, capacity;
+    int flightNumber, capacity;
     Date departureDate = Date(0,0,0);     //criar classe date, para poder usar como objeto !!
-    unsigned int flightTime;
+    int flightTime;
     string origin;
     string destination;
-    unsigned int occupiedPlaces;
+    int occupiedPlaces;
 };
 
 

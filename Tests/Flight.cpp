@@ -18,11 +18,11 @@ unsigned int Flight::getAvailablePlaces() {
     return  capacity - occupiedPlaces;
 }
 
-unsigned int Flight::getFlightNumber() const{
+int Flight::getFlightNumber() const{
     return flightNumber;
 }
 
-unsigned int Flight::getDuration() const{
+int Flight::getDuration() const{
     return flightTime;
 }
 

@@ -23,11 +23,10 @@ public:
     Passenger() : boughtTickets({}), passengerSSN(0), passengerName("") {};
     bool operator==(const Passenger &p)const;
     void setTicket(Ticket ticket);
-    bool buyTicket();
     bool ticketExist(int numFlight);
     string getName()const;
     int getSSN()const;
-    vector<Ticket> getTickets()const;
+    vector<Ticket> getTickets();
 };
 
 
