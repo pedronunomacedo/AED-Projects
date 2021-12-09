@@ -354,16 +354,24 @@ void Company::record(ofstream &dataPl, ofstream &dataPs) {
 }
 
 void Company::addPlane() {
-
-    //...
-
-
+    int plate;
+    list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
+    cout << "Plane plate to add : "; cin >> plate; cout << endl;
+    if (find(planes.begin(), planes.end(), Plane(plate, "", 0,  fl, ds, tds)) == planes.end()) {
+        int cap;
+        string type;
+        cout << "Type : "; cin >> type; cout << endl;
+        cout << "Capacity : "; cin >> cap; cout << endl;
+        planes.push_back(Plane(plate, type, cap, fl, ds, tds));
+        return;
+    }
+    cout << "Plane already exists !\n\n";
 }
 
 void Company::removePlane() {
     int plate;
     list<Flight> f{}; vector<Service> ds{}; queue<Service> tds{};
-    cout << "Plane Plate to remove : ";
+    cout << "Plane plate to remove : ";
     cin >> plate;
     planes.remove(Plane(plate, "", 0, f, ds, tds));
 }
