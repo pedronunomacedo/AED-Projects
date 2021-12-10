@@ -17,6 +17,7 @@ class Flight {
 public:
     Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity);
     bool operator== (const Flight &f) const;
+    bool operator< (const Flight &f) const;
     unsigned int getAvailablePlaces();
     void setFlightNumber(unsigned int flightNumber);
     void setDestination(string destination);

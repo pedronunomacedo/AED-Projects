@@ -417,13 +417,17 @@ void Company::removeFlight() {
     }
 }
 
+
+
 void Company::checkIn(Passenger &p) {
-
     // fazer uma binary search para encontrar os voos correspondentes ao nFL do ticket !!
-
-    for (auto &f : getFlightsToCheckIn())
-        f.show();
-
+    vector<Flight> fls = getFlightsToCheckIn();
+    int nCheckIn = 0;
+    for (auto &t : p.getTickets())
+        for (auto &f : fls)
+            if (t.getFlightNumber() == f.getFlightNumber())
+                nCheckIn++;
+    cout << "you have " << nCheckIn << " flights available to Check-in !!\n\n";
 
 }
 
@@ -435,7 +439,7 @@ vector<Flight> Company::getFlightsToCheckIn() const {
             if (date.getDay() - f.getDepartureDate().getDay() <= 1 && date.getMonth() == f.getDepartureDate().getMonth() && date.getYear() == f.getDepartureDate().getYear())
                 flights.push_back(f);
 
-    // dar sort aos flights segundo o nFL !
+    sort(flights.begin(), flights.end());       //maybe implement a quicksort !!!
     return flights;
 }
 

@@ -76,3 +76,8 @@ bool Flight::operator==(const Flight &f) const {
     return false;
 }
 
+bool Flight::operator<(const Flight &f) const {
+    if (flightNumber < f.getFlightNumber()) { return true;}
+    return false;
+}
+
