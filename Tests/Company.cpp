@@ -5,6 +5,7 @@
 #include "Company.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <stack>
 #include <queue>
@@ -301,10 +302,9 @@ void Company::showAllPassengers() {
 }
 
 void Company::showAllPlanes() {
-    str = "-";
     cout << "     Plate     |     Type     |     Capacity     " << endl;
     for (Plane &p : planes) {
-        cout << p.getPlate() << " - " << p.getType() << " - " << p.getCapacity() << endl;
+        cout << setw(9) << p.getPlate() << setw(7) << "|" << setw(9) << p.getType() << setw(6) << "|" << setw(10) << p.getCapacity() << endl;
     }
 }
 
