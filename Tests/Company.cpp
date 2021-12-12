@@ -75,11 +75,11 @@ Company::Company(ifstream &dataPl, ifstream &dataPs) {
     // read passengers !
     string sep = " - ";
     string nP;
-    getline (dataPs, nP);
+    getline (dataPs, nP); // Number of passengers (first line of the file)
     int nPs = stoi(nP);
     for (int i = 0; i < nPs; i++){
         string line;
-        getline(dataPs, line);
+        getline(dataPs, line); // Next passenger
         stringstream ss(line);
         vector<Ticket> tickets;
         int ssn, nTickets;
@@ -221,7 +221,7 @@ void Company::settingsMenu(){
                     break;
                 case 7 :
                     cout << "Planes : \n\n";
-                    //show all planes
+                    showAllPlanes();
                     Sleep(999);
                     break;
                 case 8 :
@@ -283,16 +283,28 @@ void Company::mainMenu(){
 
 
 void Company::showAllFlights() {
+    cout << "-------------------------------" << endl;
     for (auto &k : planes)
         for (auto &i : k.getFlights())
             i.show();
+        cout << "-------------------------------" << endl;
 }
 
 void Company::showAllPassengers() {
+    cout << "-------------------------------" << endl;
     for (auto &k : passengers) {
         cout << k.getName() << " | " << k.getSSN() << endl;
         for (auto &t : k.getTickets())
             cout << t.getPackage() << " | " << t.getFlightNumber() << endl;
+        cout << "-------------------------------" << endl;
+    }
+}
+
+void Company::showAllPlanes() {
+    str = "-";
+    cout << "     Plate     |     Type     |     Capacity     " << endl;
+    for (Plane &p : planes) {
+        cout << p.getPlate() << " - " << p.getType() << " - " << p.getCapacity() << endl;
     }
 }
 
