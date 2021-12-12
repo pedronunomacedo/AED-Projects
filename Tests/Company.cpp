@@ -292,12 +292,17 @@ void Company::showAllFlights() {
 }
 
 void Company::showAllPassengers() {
-    cout << "-------------------------------" << endl;
+    //cout << "-------------------------------" << endl;
+    cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
     for (auto &k : passengers) {
-        cout << k.getName() << " | " << k.getSSN() << endl;
-        for (auto &t : k.getTickets())
-            cout << t.getPackage() << " | " << t.getFlightNumber() << endl;
-        cout << "-------------------------------" << endl;
+        cout << k.getName() << setw(15-k.getName().size()) << "|" << setw(9) << k.getSSN();
+        if (k.getTickets().size() != 0) {
+            for (auto &t: k.getTickets())
+                cout << setw(5) << "|" << setw(10) << t.getPackage() << setw(9) << "|" << setw(14) << t.getFlightNumber() << endl;
+        }
+        else {
+            cout << setw(5) << "|" << setw(12) << "none" << setw(7) << "|" << setw(15) << "none" << endl;
+        }
     }
 }
 
