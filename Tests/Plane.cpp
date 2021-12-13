@@ -25,7 +25,7 @@ list<Flight>& Plane::getFlights(){
     return flightPlan;
 }
 
-queue<Service> Plane::getToDoServ(){
+queue<Service> Plane::getToDoServ(){            //adicionar passgem por referencia caso seja preciso adicionar mais serviços à queue !!
     return toDoServices;
 }
 

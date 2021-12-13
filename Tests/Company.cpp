@@ -465,7 +465,7 @@ void Company::buyTicket(Passenger &p) {
     cout << endl;
 
     // Perguntar qual é o número do voo que deseja
-    cout << "What's the name of the flight you want to buy? ";
+    cout << "What's the number of the flight you want to buy? ";
     do {
         cin >> numFlight;
         for (unsigned l : numFlight) {
@@ -488,47 +488,18 @@ void Company::buyTicket(Passenger &p) {
         else if (!avaiablePlaces) { cout << "The flight is full! Please choose another flight: "; }
     } while (!validInput);
 
-    cout << "Do you want to take package (y or n)? ";
-    cin >> pack;
-
-    while (pack != "y" && pack != "Y" && pack != "n" && pack != "N" && !(cin.fail())) { cout << "Invalid input! Please input another option: "; }
+    cout << "Do you want to take package ";
+    do {
+        cout << "(y or n) : ";
+        cin >> pack;
+    }while (pack != "y" && pack != "Y" && pack != "n" && pack != "N" && !(cin.fail()));
     if (pack == "y" || pack == "Y") { ynPackage = true; }
     else { ynPackage = false; }
 
     // Create and setup the ticket
-    Ticket* t = new Ticket(ynPackage, stoi(numFlight));
-    p.setTicket(*t);
+    auto it = find(passengers.begin(), passengers.end(), p);
+    it->getTickets().push_back(Ticket(ynPackage, stoi(numFlight)));
 
-
-    /*
-    bool validInput = false, fExist = false;
-    int nFlight, planePlate;
-    while (!validInput || !fExist) {
-        if (!(cin >> nFlight) || !fExist) {
-            cin.clear(); cin.ignore(1000, '\n');
-            cout << "Invalid input! Please input a number: ";
-            validInput = false;
-        }
-        else {
-            for (Plane p : planes) {
-                for (Flight f : p.getFlights()) {
-                    planePlate = p.getPlate();
-                    if (f.getFlightNumber() == nFlight) {
-                        fExist = true;
-                        if (f.getAvailablePlaces() > 0) {
-                            validInput = true;
-                        }
-                    }
-                }
-                if (fExist || validInput) {break; }
-            }
-        }
-        if (!validInput) {
-            cout << "The plane you want its fulled! Please choose another flight: ";
-        }
-
-    }
-     */
 }
 
 
