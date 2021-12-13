@@ -52,9 +52,12 @@ vector<Ticket> &Passenger::getTickets() {
 }
 
 void Passenger::show() const {
+    unsigned int i = 0;
     cout << passengerName << setw(15-passengerName.size()) << "|" << setw(9) << passengerSSN;
     for (auto &t: boughtTickets)
-        cout << setw(5) << "|" << setw(10) << t.getPackage() << setw(9) << "|" << setw(14) << t.getFlightNumber() << endl;
+        if (i == 0) { cout << setw(5) << "|" << setw(10) << t.getPackage() << setw(9) << "|" << setw(14) << t.getFlightNumber() << endl;}
+        else {cout << setw(29) << "|" << setw(11) << "none" << setw(8) << "|" << setw(14) << "none" << endl; }
+        i++;
     cout << endl;
 }
 
