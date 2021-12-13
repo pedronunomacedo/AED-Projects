@@ -27,6 +27,7 @@ public:
     string getName()const;
     int getSSN()const;
     vector<Ticket> getTickets();
+    void show() const;
 };
 
 

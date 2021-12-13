@@ -28,6 +28,7 @@ public:
     void setType(string typ);
     void setCapacity(unsigned int cap);
     bool checkIfIsAvailable(Date maintenanceDay, Date wantedDay);
+    void show() const;
 private:
     int plate;
     string type;

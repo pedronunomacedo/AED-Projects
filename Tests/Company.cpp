@@ -295,14 +295,7 @@ void Company::showAllPassengers() {
     cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
     cout << "----------------------------------------------------------------------" << endl;
     for (auto &k : passengers) {
-        cout << k.getName() << setw(15-k.getName().size()) << "|" << setw(9) << k.getSSN();
-        if (k.getTickets().size() != 0) {
-            for (auto &t: k.getTickets())
-                cout << setw(5) << "|" << setw(10) << t.getPackage() << setw(9) << "|" << setw(14) << t.getFlightNumber() << endl;
-        }
-        else {
-            cout << setw(5) << "|" << setw(12) << "none" << setw(7) << "|" << setw(15) << "none" << endl;
-        }
+        k.show();
     }
 }
 
@@ -310,7 +303,7 @@ void Company::showAllPlanes() {
     cout << "     Plate     |     Type     |     Capacity     " << endl;
     cout << "------------------------------------------------" << endl;
     for (Plane &p : planes) {
-        cout << setw(9) << p.getPlate() << setw(7) << "|" << setw(9) << p.getType() << setw(6) << "|" << setw(10) << p.getCapacity() << endl;
+        p.show();
     }
 }
 
@@ -463,7 +456,6 @@ vector<Flight> Company::getFlightsToCheckIn() const {
 
 void Company::buyTicket() {
     // Reduzir o número de lugares ocupados no flight
-
 
 
 

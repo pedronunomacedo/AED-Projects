@@ -3,6 +3,7 @@
 //
 
 #include "Passenger.h"
+#include <iomanip>
 
 
 /**
@@ -47,6 +48,17 @@ bool Passenger::operator==(const Passenger &p) const {
 
 vector<Ticket> Passenger::getTickets() {
     return boughtTickets;
+}
+
+void Passenger::show() const {
+    cout << passengerName << setw(15-passengerName.size()) << "|" << setw(9) << passengerSSN;
+    if (boughtTickets.size() != 0) {
+        for (auto &t: boughtTickets)
+            cout << setw(5) << "|" << setw(10) << t.getPackage() << setw(9) << "|" << setw(14) << t.getFlightNumber() << endl;
+    }
+    else {
+        cout << setw(5) << "|" << setw(12) << "none" << setw(7) << "|" << setw(15) << "none" << endl;
+    }
 }
 
 

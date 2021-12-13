@@ -3,6 +3,7 @@
 //
 
 #include "Plane.h"
+#include <iomanip>
 
 Plane::Plane(int plat, string typ, unsigned int cap, list<Flight> &plan, vector<Service> &done, queue<Service> &toDo)
 {
@@ -71,6 +72,10 @@ void Plane::setCapacity( unsigned int cap )
 void Plane::setType(string typ)
 {
     type = typ;
+}
+
+void Plane::show() const {
+    cout << setw(9) << plate << setw(7) << "|" << setw(9) << type << setw(6) << "|" << setw(10) << capacity << endl;
 }
 
 
