@@ -3,6 +3,7 @@
 //
 
 #include "Flight.h"
+#include <iomanip>
 
 Flight::Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity){
     flightNumber = number;
@@ -79,5 +80,9 @@ bool Flight::operator==(const Flight &f) const {
 bool Flight::operator<(const Flight &f) const {
     if (flightNumber < f.getFlightNumber()) { return true;}
     return false;
+}
+
+void Flight::show() {
+    cout << setw(13) << flightNumber << setw(11) << "|" << setw(15) << departureDate.getDate() << setw(7) << "|" << setw(12) << flightTime << setw(10) << "|" << origin << setw(17-origin.size()) << "|" << destination << setw(22-destination.size()) << "|"  << setw(15) << getAvailablePlaces() << endl;
 }
 

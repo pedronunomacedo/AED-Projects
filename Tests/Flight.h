@@ -31,7 +31,7 @@ public:
     Date getDepartureDate()const;
     int getFlightNumber()const;
     int getDuration()const;
-    void show(){cout << flightNumber << " " << departureDate.getDate() << " " << flightTime << " " << origin << " " << destination << " " << getAvailablePlaces() << endl;};
+    void show();
 
 private:
     int flightNumber, capacity;

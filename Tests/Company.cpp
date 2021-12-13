@@ -284,16 +284,16 @@ void Company::mainMenu(){
 
 
 void Company::showAllFlights() {
-    cout << "-------------------------------" << endl;
+    cout << "     Flight Number     |     Flight Date     |     Flight Time     |     Origin     |     Destination     |     Avaiable Places" << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------------------" << endl;
     for (auto &k : planes)
         for (auto &i : k.getFlights())
             i.show();
-        cout << "-------------------------------" << endl;
 }
 
 void Company::showAllPassengers() {
-    //cout << "-------------------------------" << endl;
     cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
+    cout << "----------------------------------------------------------------------" << endl;
     for (auto &k : passengers) {
         cout << k.getName() << setw(15-k.getName().size()) << "|" << setw(9) << k.getSSN();
         if (k.getTickets().size() != 0) {
@@ -308,6 +308,7 @@ void Company::showAllPassengers() {
 
 void Company::showAllPlanes() {
     cout << "     Plate     |     Type     |     Capacity     " << endl;
+    cout << "------------------------------------------------" << endl;
     for (Plane &p : planes) {
         cout << setw(9) << p.getPlate() << setw(7) << "|" << setw(9) << p.getType() << setw(6) << "|" << setw(10) << p.getCapacity() << endl;
     }
