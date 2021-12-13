@@ -147,7 +147,7 @@ void Company::userMenu() {
                     break;
                 case 3 :
                     if (checkPassenger(p))
-                        buyTicket();
+                        buyTicket(p);
 
                     Sleep(500);
                     break;
@@ -454,24 +454,55 @@ vector<Flight> Company::getFlightsToCheckIn() const {
     return flights;
 }
 
-void Company::buyTicket() {
-    // Reduzir o número de lugares ocupados no flight
-
-
-
-
-    /*
+void Company::buyTicket(Passenger &p) {
     // Variables
-    bool validInput = false, fExist = false;
-    int nFlight, planePlate;
+    string numFlight, pack;
+    bool validInput = true, avaiablePlaces = false, ynPackage;
 
     // Print a todos os voos disponiveis
     cout << endl;
-
+    showAllFlights();
     cout << endl;
 
     // Perguntar qual é o número do voo que deseja
     cout << "What's the name of the flight you want to buy? ";
+    do {
+        cin >> numFlight;
+        for (unsigned l : numFlight) {
+            if (!isdigit(l)) { validInput = false; break;}
+        }
+        if (validInput) {
+            validInput = false;
+            for (auto &p: planes) {
+                for (auto &f: p.getFlights()) {
+                    if (f.getFlightNumber() == stoi(numFlight) && f.getAvailablePlaces() > 0) {
+                        validInput = true; avaiablePlaces = true;
+                        f.setOccupiedPlaces();
+                        break;
+                    }
+                }
+                if (validInput) break;
+            }
+        }
+        if (!validInput) { cout << "Invalid input! Please input another number for the flight: "; }
+        else if (!avaiablePlaces) { cout << "The flight is full! Please choose another flight: "; }
+    } while (!validInput);
+
+    cout << "Do you want to take package (y or n)? ";
+    cin >> pack;
+
+    while (pack != "y" && pack != "Y" && pack != "n" && pack != "N" && !(cin.fail())) { cout << "Invalid input! Please input another option: "; }
+    if (pack == "y" || pack == "Y") { ynPackage = true; }
+    else { ynPackage = false; }
+
+    // Create and setup the ticket
+    Ticket* t = new Ticket(ynPackage, stoi(numFlight));
+    p.setTicket(*t);
+
+
+    /*
+    bool validInput = false, fExist = false;
+    int nFlight, planePlate;
     while (!validInput || !fExist) {
         if (!(cin >> nFlight) || !fExist) {
             cin.clear(); cin.ignore(1000, '\n');
@@ -484,7 +515,7 @@ void Company::buyTicket() {
                     planePlate = p.getPlate();
                     if (f.getFlightNumber() == nFlight) {
                         fExist = true;
-                        if (f.getAvailablePlaces(planePlate) > 0) {
+                        if (f.getAvailablePlaces() > 0) {
                             validInput = true;
                         }
                     }
@@ -497,9 +528,7 @@ void Company::buyTicket() {
         }
 
     }
-
-    return nFlight;
-    */
+     */
 }
 
 

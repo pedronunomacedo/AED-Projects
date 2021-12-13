@@ -33,7 +33,7 @@ private:
     void showAllFlights();
     void showAllPassengers();
     void showAllPlanes();
-    void buyTicket();
+    void buyTicket(Passenger &p);
     void addPlane();
     void addFlight();
     void addPassenger();
