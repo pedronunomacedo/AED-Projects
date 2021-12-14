@@ -76,6 +76,7 @@ void Plane::setType(string typ)
 
 void Plane::show() const {
     cout << setw(9) << plate << setw(7) << "|" << setw(9) << type << setw(6) << "|" << setw(10) << capacity << endl;
+    cout << "------------------------------------------------" << endl;
 }
 
 

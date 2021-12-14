@@ -15,7 +15,7 @@ using namespace std;
 
 class Flight {
 public:
-    Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity);
+    Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity, int occupiedPlaces);
     bool operator== (const Flight &f) const;
     bool operator< (const Flight &f) const;
     unsigned int getAvailablePlaces();
@@ -29,6 +29,7 @@ public:
     string getOrigin()const;
     string getDestination()const;
     Date getDepartureDate()const;
+    int getCapacity()const;
     int getFlightNumber()const;
     int getDuration()const;
     void show();

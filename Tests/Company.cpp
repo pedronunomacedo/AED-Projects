@@ -33,13 +33,13 @@ Company::Company(ifstream &dataPl, ifstream &dataPs) {
         for (int j = 0; j < nFlights; j++){
             string l, origin, dest;
             char sep1 = '/';
-            int numberF, durationF;
+            int numberF, durationF, ocPlaces;
             int d,m,y;
             getline(dataPl,l);
             stringstream ss1(l);
-            ss1 >> numberF >> sep >> d >> sep1 >> m >> sep1 >> y >> sep >> durationF >> sep >> origin >> sep >> dest;
+            ss1 >> numberF >> sep >> d >> sep1 >> m >> sep1 >> y >> sep >> durationF >> sep >> origin >> sep >> dest >> sep >> ocPlaces;
             Date dateF(d,m,y);
-            Flight f (numberF,durationF,dateF,origin,dest, capP);
+            Flight f (numberF,durationF,dateF,origin,dest, capP, ocPlaces);
             fls.push_back(f);
         }
 
@@ -285,7 +285,7 @@ void Company::mainMenu(){
 
 void Company::showAllFlights() {
     cout << "     Flight Number     |     Flight Date     |     Flight Time     |     Origin     |     Destination     |     Avaiable Places" << endl;
-    cout << "------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "====================================================================================================================================" << endl;
     for (auto &k : planes)
         for (auto &i : k.getFlights())
             i.show();
@@ -293,7 +293,7 @@ void Company::showAllFlights() {
 
 void Company::showAllPassengers() {
     cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
-    cout << "----------------------------------------------------------------------" << endl;
+    cout << "======================================================================" << endl;
     for (auto &k : passengers) {
         k.show();
     }
@@ -301,7 +301,7 @@ void Company::showAllPassengers() {
 
 void Company::showAllPlanes() {
     cout << "     Plate     |     Type     |     Capacity     " << endl;
-    cout << "------------------------------------------------" << endl;
+    cout << "================================================" << endl;
     for (Plane &p : planes) {
         p.show();
     }
@@ -309,7 +309,11 @@ void Company::showAllPlanes() {
 
 void Company::addPassenger() {
     int ssn; string name;
-    cout << "Passenger SSN to add : ";cin >> ssn;cin.ignore();
+    do {
+        cout << "Passenger SSN to add (xxxxxxxxx) : ";
+        cin >> ssn;
+        cin.ignore();
+    }while (to_string(ssn).size() != 9);
     for (auto &k : passengers)
         if (k.getSSN() == ssn){
             cout << "SSN already in use !\n";
@@ -352,7 +356,7 @@ void Company::record(ofstream &dataPl, ofstream &dataPs) {
         dataPl << p.getPlate() << sep << p.getType() << sep << p.getCapacity() << endl;
         dataPl << p.getFlights().size() << endl;
         for (auto &f : p.getFlights())
-            dataPl << f.getFlightNumber() << sep << f.getDepartureDate().getDate() << sep << f.getDuration() << sep << f.getOrigin() << sep << f.getDestination() << endl;
+            dataPl << f.getFlightNumber() << sep << f.getDepartureDate().getDate() << sep << f.getDuration() << sep << f.getOrigin() << sep << f.getDestination() << sep << f.getOccupiedPlaces() << endl;
         dataPl << p.getDoneServ().size() << endl;
         for (auto &ds : p.getDoneServ())
             dataPl << ds.getType() << sep << ds.getDate().getDate() << sep << ds.getEmployeeName() << endl;
@@ -409,7 +413,7 @@ void Company::addFlight() {
     int cnt;
     cout << "Flight number : "; cin >> number; cout << endl;
     for (auto &i : planes)
-        if (find(i.getFlights().begin(), i.getFlights().end(), Flight(number, 0, Date(), "", "", 0)) != i.getFlights().end()) {
+        if (find(i.getFlights().begin(), i.getFlights().end(), Flight(number, 0, Date(), "", "", 0, 0)) != i.getFlights().end()) {
             cnt ++;
 
         }
@@ -417,14 +421,14 @@ void Company::addFlight() {
     cout << "Duration : "; cin >> duration; cout << endl;
     cout << "Origin : "; cin >> ori; cout << endl;
     cout << "Destination : "; cin >> dest; cout << endl;
-    it->getFlights().push_back(Flight(number, duration, d, ori, dest, it->getCapacity()));
+    it->getFlights().push_back(Flight(number, duration, d, ori, dest, it->getCapacity(), 0));
 }
 
 void Company::removeFlight() {
     int fNumber;
     cout << "Flight Number to remove : "; cin >> fNumber;
     for (auto &p : planes){
-        p.getFlights().remove(Flight(fNumber, 0, Date(), "", "", 0));
+        p.getFlights().remove(Flight(fNumber, 0, Date(), "", "", 0, 0));
     }
 }
 
@@ -439,6 +443,7 @@ void Company::checkIn(Passenger &p) {
             if (t.getFlightNumber() == f.getFlightNumber())
                 nCheckIn++;
     cout << "you have " << nCheckIn << " flights available to Check-in !!\n\n";
+    // falta dar ckeckIN no voo , e remove o ticket desse voo do passenger
 
 }
 
@@ -473,19 +478,16 @@ void Company::buyTicket(Passenger &p) {
         }
         if (validInput) {
             validInput = false;
-            for (auto &p: planes) {
-                for (auto &f: p.getFlights()) {
-                    if (f.getFlightNumber() == stoi(numFlight) && f.getAvailablePlaces() > 0) {
-                        validInput = true; avaiablePlaces = true;
-                        f.setOccupiedPlaces();
-                        break;
-                    }
+            for (auto &pl: planes) {
+                auto f = find(pl.getFlights().begin(), pl.getFlights().end(), Flight(stoi(numFlight), 0, Date(), "", "", 0, 0));
+                if (f->getAvailablePlaces() > 0){
+                    validInput = true; avaiablePlaces = true;
+                    f->setOccupiedPlaces();
                 }
-                if (validInput) break;
             }
         }
         if (!validInput) { cout << "Invalid input! Please input another number for the flight: "; }
-        else if (!avaiablePlaces) { cout << "The flight is full! Please choose another flight: "; }
+        else if (!avaiablePlaces) { cout << "The flight is full! Please choose another flight: "; }        //atençao aquiii !!
     } while (!validInput);
 
     cout << "Do you want to take package ";
