@@ -415,9 +415,8 @@ void Company::addFlight() {
     for (auto &i : planes)
         if (find(i.getFlights().begin(), i.getFlights().end(), Flight(number, 0, Date(), "", "", 0, 0)) != i.getFlights().end()) {
             cnt ++;
-
         }
-    if (cnt > 0) return;
+    if (cnt > 0) { cout << "Flight number already in use\n "; return; }
     cout << "Duration : "; cin >> duration; cout << endl;
     cout << "Origin : "; cin >> ori; cout << endl;
     cout << "Destination : "; cin >> dest; cout << endl;
@@ -444,6 +443,7 @@ void Company::checkIn(Passenger &p) {
                 nCheckIn++;
     cout << "you have " << nCheckIn << " flights available to Check-in !!\n\n";
     // falta dar ckeckIN no voo , e remove o ticket desse voo do passenger
+    // Selecionar manual/automática bagagem
 
 }
 
@@ -501,6 +501,15 @@ void Company::buyTicket(Passenger &p) {
     // Create and setup the ticket
     auto it = find(passengers.begin(), passengers.end(), p);
     it->getTickets().push_back(Ticket(ynPackage, stoi(numFlight)));
+
+}
+
+void Company::addService() {
+    string nameService;
+    cout << "What's the type of service you want to add (maintenance or )? "; cin >> nameService;
+}
+
+void Company::removeService() {
 
 }
 

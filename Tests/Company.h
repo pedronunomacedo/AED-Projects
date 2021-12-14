@@ -37,9 +37,11 @@ private:
     void addPlane();
     void addFlight();
     void addPassenger();
+    void addService();
     void removePlane();
     void removeFlight();
     void removePassenger();
+    void removeService();
     void checkIn(Passenger &p);
 
 };
