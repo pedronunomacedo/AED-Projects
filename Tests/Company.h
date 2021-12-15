@@ -9,7 +9,8 @@
 #include "Plane.h"
 #include "Flight.h"
 #include "Passenger.h"
-#include <windows.h>
+#include "Airport.h"
+#include <windows.h>            // !!!!!!!
 #include <fstream>
 #include <list>
 
@@ -20,10 +21,11 @@ using namespace std;
 
 class Company {
 public:
-    Company(ifstream &dataPl, ifstream &dataPs);
+    Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir);
     void mainMenu();
     void record(ofstream &dataPl, ofstream &dataPs);
 private:
+    list<Airport> airports;
     list<Plane> planes;
     list<Passenger> passengers;
     vector<Flight> getFlightsToCheckIn()const;

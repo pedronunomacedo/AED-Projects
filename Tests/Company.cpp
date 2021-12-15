@@ -12,7 +12,52 @@
 #include <algorithm>
 using namespace std;
 
-Company::Company(ifstream &dataPl, ifstream &dataPs) {
+void swap(Flight* a, Flight* b)
+{
+    Flight t = *a;
+    *a = *b;
+    *b = t;
+}
+
+// partition the array using last element as pivot
+int partition (vector<Flight> &v, int low, int high)
+{
+    int pivot = v[high].getFlightNumber();    // pivot
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1 ; j++)
+    {
+        //if current element is smaller than pivot, increment the low element
+        //swap elements at i and j
+        if (v[j].getFlightNumber() <= pivot)
+        {
+            i++;    // increment index of smaller element
+            swap(&v[i], &v[j]);
+        }
+    }
+    swap(&v[i + 1], &v[high]);
+    return (i + 1);
+}
+
+void sort(vector<Flight> &v, int low, int high)
+{
+    if (low < high)
+    {
+        //partition the array
+        int pivot = partition(v, low, high);
+
+        //sort the sub arrays independently
+        sort(v, low , pivot - 1);
+        sort(v, pivot + 1, high);
+    }
+}
+
+Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
+    //read airports !
+
+
+
+
     // read planes !
     int nPlanes;
     string nPl;
@@ -286,9 +331,15 @@ void Company::mainMenu(){
 void Company::showAllFlights() {
     cout << "     Flight Number     |     Flight Date     |     Flight Time     |     Origin     |     Destination     |     Avaiable Places" << endl;
     cout << "====================================================================================================================================" << endl;
+    vector<Flight> fls;
     for (auto &k : planes)
         for (auto &i : k.getFlights())
-            i.show();
+            fls.push_back(i);
+
+    sort(fls,0,fls.size() - 1);
+    for (auto &k: fls)
+        k.show();
+
 }
 
 void Company::showAllPassengers() {
@@ -434,9 +485,8 @@ void Company::removeFlight() {
 
 
 void Company::checkIn(Passenger &p) {
-    // fazer uma binary search para encontrar os voos correspondentes ao nFL do ticket !!
     vector<Flight> fls = getFlightsToCheckIn();
-    int nCheckIn = 0;
+    vector <Ticket> readyCk;
     for (auto &t : p.getTickets())
         for (auto &f : fls)
             if (t.getFlightNumber() == f.getFlightNumber())
