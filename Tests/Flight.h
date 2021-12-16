@@ -36,7 +36,7 @@ public:
 
 private:
     int flightNumber, capacity;
-    Date departureDate = Date(0,0,0);     //criar classe date, para poder usar como objeto !!
+    Date departureDate;     //criar classe date, para poder usar como objeto !!
     int flightTime;
     string origin;
     string destination;

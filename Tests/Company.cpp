@@ -487,11 +487,12 @@ void Company::removeFlight() {
 void Company::checkIn(Passenger &p) {
     vector<Flight> fls = getFlightsToCheckIn();
     vector <Ticket> readyCk;
+    int nCheckIn;
     for (auto &t : p.getTickets())
         for (auto &f : fls)
             if (t.getFlightNumber() == f.getFlightNumber())
-                nCheckIn++;
-    cout << "you have " << nCheckIn << " flights available to Check-in !!\n\n";
+                 nCheckIn++;
+    cout << " You have " << nCheckIn << " flights available to Check-in !!\n\n";
     // falta dar ckeckIN no voo , e remove o ticket desse voo do passenger
     // Selecionar manual/automática bagagem
 
