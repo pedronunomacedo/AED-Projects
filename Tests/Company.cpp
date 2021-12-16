@@ -1,7 +1,5 @@
 //
-// Created by pedro on 01/12/2021.
-//
-
+// Created by pedro on 01/12
 #include "Company.h"
 #include <string>
 #include <iostream>
@@ -11,6 +9,24 @@
 #include <queue>
 #include <algorithm>
 using namespace std;
+
+int BinarySearch(vector<Flight> v, int el){
+    int left = 0, right = v.size() - 1;
+    while (left <= right)
+    {
+        int middle = (left + right) / 2;
+        if (v[middle].getFlightNumber() < el) {
+            left = middle + 1;
+        }
+        else if (el < v[middle].getFlightNumber()) {
+            right = middle -1;
+        }
+        else{
+            return middle;
+        } // found
+    }
+    return 0;
+}
 
 void swap(Flight* a, Flight* b)
 {
@@ -487,16 +503,24 @@ void Company::removeFlight() {
 void Company::checkIn(Passenger &p) {
     vector<Flight> fls = getFlightsToCheckIn();
     vector <Ticket> readyCk;
-    int nCheckIn;
     for (auto &t : p.getTickets())
-        for (auto &f : fls)
-            if (t.getFlightNumber() == f.getFlightNumber())
-                 nCheckIn++;
-    cout << " You have " << nCheckIn << " flights available to Check-in !!\n\n";
-    // falta dar ckeckIN no voo , e remove o ticket desse voo do passenger
-    // Selecionar manual/automática bagagem
+        if(BinarySearch(fls,t.getFlightNumber()))
+            readyCk.push_back(t);
+
+    if (readyCk.size() > 0) {
+        cout << "    Flight Number    " << endl;
+        cout << "=====================" << endl;
+        for (auto &t: readyCk) {
+            cout << t.getFlightNumber() << endl;
+            cout << "---------------------" << endl;
+        }
+        // selecionar opçao do ticket , retira lo ao passenger e perguntar sobre bagage !
+    }
+    else {cout << "you have " << readyCk.size() << " flights available to Check-in !!\n\n";}
+
 
 }
+
 
 vector<Flight> Company::getFlightsToCheckIn() const {
     vector<Flight> flights;
@@ -506,7 +530,7 @@ vector<Flight> Company::getFlightsToCheckIn() const {
             if (date.getDay() - f.getDepartureDate().getDay() <= 1 && date.getMonth() == f.getDepartureDate().getMonth() && date.getYear() == f.getDepartureDate().getYear())
                 flights.push_back(f);
 
-    sort(flights.begin(), flights.end());       //maybe implement a quicksort !!!
+    sort(flights,0,flights.size() - 1);       //maybe implement a quicksort!!! done
     return flights;
 }
 
@@ -556,8 +580,23 @@ void Company::buyTicket(Passenger &p) {
 }
 
 void Company::addService() {
-    string nameService;
-    cout << "What's the type of service you want to add (maintenance or )? "; cin >> nameService;
+    string nameService, dateService, employeeService;
+    int plateNumber;
+    list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
+    cout << "Say the plate of the plane you wish to stop for maintenance or cleaning:" << endl; cin >> plateNumber;
+    auto it = find(planes.begin(), planes.end(), Plane(plateNumber, "", 0,  fl, ds, tds));
+    if (it == planes.end()){
+        cout << "Plane not found !\n\n";
+        return;
+        //cout << "Try again! The plate you selected must be wrong!"<< endl;
+        //addService();
+    }
+    cout << "What's the type of service you want to add (maintenance or cleaning)? "<< endl; cin >> nameService;
+    cout << "In which date you want to add that service? format(dd/mm/yyyy)"<< endl; cin >> dateService;
+    cout << "What´s the name of the employee responsible?" << endl; cin >> employeeService;
+    Date b = Date(dateService);
+    Service p = Service(nameService,b,employeeService);
+    it->setToDoServ(p);
 }
 
 void Company::removeService() {
