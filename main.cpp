@@ -1,28 +1,26 @@
 #include <iostream>
 #include "Tests/Company.h"
 #include <istream>
+#include <string>
 #include "Tests/Date.h"
-
+#include <ctime>
 
 using namespace std;
 
 
-
-int main() {
-
+int main(){
 
 
-
-    ifstream planes, passengers;
+    ifstream planes, passengers, airports;
     planes.open("PLANES.txt"); // Just need the name of the file to open!
     passengers.open("PASSENGERS.txt");
-
-    if (!planes.is_open() || !passengers.is_open()) {
+    airports.open("AIRPORT.txt");
+    if (!planes.is_open() || !passengers.is_open() || !airports.is_open()) {
         cout << "Files not Found\n";
         return 1;
     }
 
-    Company comp(planes, passengers);
+    Company comp(planes, passengers, airports);
 
     planes.close();
     passengers.close();

@@ -29,6 +29,10 @@ queue<Service> Plane::getToDoServ(){            //adicionar passgem por referenc
     return toDoServices;
 }
 
+queue<Service> Plane::setToDoServ(Service p) {
+    toDoServices.push(p);
+}
+
 vector<Service> Plane::getDoneServ(){
     return servicesDone;
 }
