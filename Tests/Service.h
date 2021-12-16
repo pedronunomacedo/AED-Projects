@@ -6,7 +6,7 @@
 #define AIRPORTMANAGEMENT_AED_PROJECT_SERVICE_H
 #include <iostream>
 #include "Date.h"
-
+#include "Company.h"
 using namespace std;
 
 class Service {

@@ -1,32 +1,28 @@
 //
-// Created by Pedro Macedo on 16/12/2021.
+// Created by ruben on 29/11/2021.
 //
 
-#ifndef PLANE_CPP_DATE_H
-#define PLANE_CPP_DATE_H
+#ifndef AIRPORTMANAGEMENT_AED_PROJECT_DATE_H
+#define AIRPORTMANAGEMENT_AED_PROJECT_DATE_H
 #include <iostream>
 #include <ctime>
-#include <string>
-#include <sstream>
-#include <vector>
 using namespace std;
 
 class Date {
 public:
-    Date(string data);
-    unsigned int getYear() const;
-    unsigned int getMonth() const;
-    unsigned int getDay() const;
-    string getDate() const; // returns the date in format "yyyy/mm/dd"
-    int DaysBetweenDates(string &date2);
+    Date(unsigned int day, unsigned int month, unsigned int year) {this->day = day; this->month = month; this->year = year;};
+    Date(string yearMonthDayR) { year = stoi(yearMonthDayR.substr(6, 4)); month = stoi(yearMonthDayR.substr(3, 2)); day = stoi(yearMonthDayR.substr(0, 2));}
+    Date() {time_t ttime = time(0); tm local_time; localtime_s(&local_time, &ttime); year = 1900 + local_time.tm_year; month = 1 + local_time.tm_mon; day = local_time.tm_mday;}
+    unsigned int getYear() const {return year;};
+    unsigned int getMonth() const {return month;};
+    unsigned int getDay() const {return day;};
+    string getDate() const {return to_string(day) + '/' + to_string(month) + '/' + to_string(year);}; // returns the date in format "yyyy/mm/dd"
+    bool operator==(const Date& date) const{return year == date.getYear() && month == date.getMonth() && day == date.getDay();};
 private:
-    string date2;
-    unsigned int year2;
-    unsigned int month2;
-    unsigned int day2;
-    unsigned int hour2;
-    unsigned int minute2;
-    unsigned int second2;
-    char sep = '/';
+    unsigned int year;
+    unsigned int month;
+    unsigned int day;
 };
-#endif //PLANE_CPP_DATE_H
+
+
+#endif //AIRPORTMANAGEMENT_AED_PROJECT_DATE_H
