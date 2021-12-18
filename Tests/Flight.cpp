@@ -80,7 +80,7 @@ bool Flight::operator<(const Flight &f) const {
 }
 
 void Flight::show() {
-    cout << setw(13) << flightNumber << setw(11) << "|" << setw(15) << departureDate.show() << setw(7) << "|" << setw(12) << flightTime << setw(10) << "|" << setw(5 + origin.size()) << origin << setw(12-origin.size()) << "|" << setw(7 + destination.size()) << destination << setw(15-destination.size()) << "|"  << setw(15) << getAvailablePlaces() << endl;
+    cout << setw(13) << flightNumber << setw(11) << "|" << setw(15) << departureDate.show() << setw(3) << "|" << setw(12) << flightTime << setw(10) << "|" << setw(5 + origin.size()) << origin << setw(12-origin.size()) << "|" << setw(7 + destination.size()) << destination << setw(15-destination.size()) << "|"  << setw(15) << getAvailablePlaces() << endl;
     cout << "------------------------------------------------------------------------------------------------------------------------------------" << endl;
 }
 
