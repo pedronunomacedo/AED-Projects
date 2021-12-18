@@ -33,7 +33,7 @@ void Plane::setToDoServ(Service &p) {
     toDoServices.push(p);
 }
 
-vector<Service> Plane::getDoneServ(){
+vector<Service> &Plane::getDoneServ(){
     return servicesDone;
 }
 

@@ -68,8 +68,23 @@ void sort(vector<Flight> &v, int low, int high)
     }
 }
 
-Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
+void Company::update() {
+    for (auto &p : planes) {
+        for (auto f = p.getFlights().begin(); f != p.getFlights().end(); f++) {
+            if (f->getDepartureDate().daysSince2020() < 0) {
+                p.getFlights().remove(*f--);
+            }
+        }
+        for (int i = 0; i < p.getToDoServ().size(); i++){
+            if (p.getToDoServ().front().getDate().daysSince2020() < 0){
+                p.getDoneServ().push_back(p.getToDoServ().front());
+                p.getToDoServ().pop();
+            }
+        }
+    }
+}
 
+Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
     //read airports !
     int nAirports;
     string nAir;
@@ -160,6 +175,11 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
         Passenger p(name, ssn, tickets);
         passengers.push_back(p);
     }
+
+    //call update method !
+    update();
+
+
 }
 
 bool Company::checkPassenger(Passenger &p){
@@ -535,11 +555,32 @@ void Company::checkIn(Passenger &p) {
             readyCk.push_back(t);
 
     if (readyCk.size() > 0) {
+        cout << endl;
         cout << "    Flight Number    " << endl;
         cout << "=====================" << endl;
         for (auto &t: readyCk) {
             cout << t.getFlightNumber() << endl;
             cout << "---------------------" << endl;
+        }
+        cout << endl;
+        char opt;
+        cout << "Yes (Y) to confirm CheckIn\nNO (N) to cancel CheckIn\n( Y / N ) : ";cin >> opt;
+        cout << endl;
+        if (toupper(opt) == 'Y'){
+            readyCk.erase(readyCk.begin());
+            list<Flight>::iterator it;
+            for (auto &pl : planes) {
+                it = find(pl.getFlights().begin(), pl.getFlights().end(), Flight(readyCk[0].getFlightNumber(),0,Date(), "", "", 0, 0));
+            }
+            cout << "Additional information about destination airport : \n";
+            for (auto &a : airports) {
+                if (a.getName() == it->getDestination()){
+                    a.showTransports();
+                    break;
+                }
+            }
+            cout << endl << "Have a nice flight !\n\nEnter any char to continue!\n";
+            char i; cin >> i;
         }
         // selecionar opçao do ticket , retira lo ao passenger e perguntar sobre bagage !
     }
@@ -661,6 +702,7 @@ void Company::showAllServices() {
             p.getToDoServ().pop();
         }
 }
+
 
 
 

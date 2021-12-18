@@ -21,7 +21,7 @@ public:
     list<Flight> &getFlights();
     queue<Service> getToDoServ();
     void setToDoServ(Service &p);
-    vector<Service> getDoneServ();
+    vector<Service> &getDoneServ();
     unsigned int getCapacity()const;
     string getType()const;          //varios metodos podem ser definidos como const
     int getPlate()const;

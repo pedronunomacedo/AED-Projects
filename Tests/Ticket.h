@@ -14,6 +14,7 @@ private:
     int flightNumber;
 public:
     Ticket(bool package, int flightNumber);
+    bool operator== (const Ticket &t) const {return flightNumber == t.getFlightNumber();}
     int getFlightNumber() const;
     bool getPackage() const;
 };

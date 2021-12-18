@@ -29,6 +29,7 @@ private:
     list<Plane> planes;
     list<Passenger> passengers;
     vector<Flight> getFlightsToCheckIn()const;
+    void update();
     bool checkPassenger(Passenger &p);
     void userMenu();
     void settingsMenu();

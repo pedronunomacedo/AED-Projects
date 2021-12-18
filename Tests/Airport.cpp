@@ -4,17 +4,21 @@
 
 #include "Airport.h"
 #include <iomanip>
+#include <cmath>
 
 
 
 void Airport::showTransports() const {
     unsigned int dis; string typ;
     BSTItrIn<Transports> it(transports);
+    cout << "      Type      |      Distance (Km)      " << endl;
+    cout << "==========================================" << endl;
     while (!it.isAtEnd()){
         typ = it.retrieve().getType();
         dis = it.retrieve().getDistance();
-        cout << setw(9) << typ << setw(7) << "|" << setw(9) << dis << endl;
-        cout << "----------------------------------------" << endl;
+        cout << setw(floor((16.0-typ.size())/2)+typ.size()) << typ << setw(ceil((16.0-typ.size())/2)+1) << "|" << setw(floor((25-to_string(dis).size())/2)+
+        to_string(dis).size()) << dis << endl;
+        cout << "------------------------------------------" << endl;
         it.advance();
     }
 }
