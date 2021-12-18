@@ -22,3 +22,8 @@ string Service::getEmployeeName()const {
     return employeeName;
 }
 
+void Service::show() const {
+    cout << setw(floor((14-type.size())/2)+type.size()-1) << type << setw(ceil((14-type.size())/2)+1) << "|" << serviceDate.show() << " |" << setw( floor((23-employeeName.size())/2)+employeeName.size()-1 ) << employeeName << endl;
+    cout << "------------------------------------------------" << endl;
+}
+

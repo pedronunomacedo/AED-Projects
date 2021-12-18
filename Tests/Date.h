@@ -6,22 +6,41 @@
 #define AIRPORTMANAGEMENT_AED_PROJECT_DATE_H
 #include <iostream>
 #include <ctime>
+#include <vector>
+#include <iomanip>
 using namespace std;
 
 class Date {
 public:
-    Date(unsigned int day, unsigned int month, unsigned int year) {this->day = day; this->month = month; this->year = year;};
-    Date(string yearMonthDayR) { year = stoi(yearMonthDayR.substr(6, 4)); month = stoi(yearMonthDayR.substr(3, 2)); day = stoi(yearMonthDayR.substr(0, 2));}
-    Date() {time_t ttime = time(0); tm local_time; localtime_s(&local_time, &ttime); year = 1900 + local_time.tm_year; month = 1 + local_time.tm_mon; day = local_time.tm_mday;}
-    unsigned int getYear() const {return year;};
-    unsigned int getMonth() const {return month;};
-    unsigned int getDay() const {return day;};
-    string getDate() const {return to_string(day) + '/' + to_string(month) + '/' + to_string(year);}; // returns the date in format "yyyy/mm/dd"
-    bool operator==(const Date& date) const{return year == date.getYear() && month == date.getMonth() && day == date.getDay();};
+    Date();
+    Date(string &d);
+    void setYear(int y);
+    void setMonth(int m);
+    void setDay(int d);
+    void setHour(int h);
+    void setMinute(int min);
+    void setSecond(int sec);
+    int getYear() const;
+    int getMonth() const;
+    int getDay() const;
+    int getHour() const;
+    int getMinute() const;
+    int getSecond() const;
+    string show() const;        //esta alterado !
+    int daysSince2020() const;
+    int daysBetweenDates(Date &date2);
 private:
-    unsigned int year;
-    unsigned int month;
-    unsigned int day;
+    string data;
+    int year;
+    int month;
+    int day;
+    int hour;
+    int minute;
+    int second;
+    char sep1 = '/';
+    char sep2 = '_';
+    char sep3 = ':';
+    vector<int> monthsDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // monthsDays is not a leap year
 };
 
 

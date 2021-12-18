@@ -29,7 +29,7 @@ queue<Service> Plane::getToDoServ(){            //adicionar passgem por referenc
     return toDoServices;
 }
 
-queue<Service> Plane::setToDoServ(Service p) {
+void Plane::setToDoServ(Service &p) {
     toDoServices.push(p);
 }
 
@@ -51,7 +51,7 @@ unsigned int Plane::getCapacity()const{
 
 bool Plane::checkIfIsAvailable( Date maintenanceDay, Date wantedDay )
 {
-    if( maintenanceDay.getDate() == wantedDay.getDate() )
+    if(maintenanceDay.show() == wantedDay.show())
     {
         cout << "On this day the plane is undergoing maintenance! Try to choose another day! Thank you for your hard work!" << endl;
         return false;

@@ -3,11 +3,16 @@
 //
 
 #include "Transports.h"
-/*
-Transports::Transports(string type, unsigned int distance, Schedule schedule) {
+
+Transports::Transports(string type, unsigned int distance) {
     this->type = type;
     this->distance = distance;
-    this->schedule = schedule;
-
 }
-*/
+
+unsigned int Transports::getDistance() const {
+    return distance;
+}
+
+string Transports::getType() const {
+    return type;
+}

@@ -69,10 +69,17 @@ void sort(vector<Flight> &v, int low, int high)
 }
 
 Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
+
     //read airports !
-
-
-
+    int nAirports;
+    string nAir;
+    getline(dataAir, nAir);
+    nAirports = stoi(nAir);
+    for (int i = 0; i < nAirports; i++){
+        Airport a;
+        a.readFile(dataAir);
+        airports.push_back(a);
+    }
 
     // read planes !
     int nPlanes;
@@ -92,14 +99,12 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
         getline(dataPl,nFl);
         int nFlights = stoi(nFl);
         for (int j = 0; j < nFlights; j++){
-            string l, origin, dest;
-            char sep1 = '/';
+            string l, origin, dest, date;
             int numberF, durationF, ocPlaces;
-            int d,m,y;
             getline(dataPl,l);
             stringstream ss1(l);
-            ss1 >> numberF >> sep >> d >> sep1 >> m >> sep1 >> y >> sep >> durationF >> sep >> origin >> sep >> dest >> sep >> ocPlaces;
-            Date dateF(d,m,y);
+            ss1 >> numberF >> sep >> date >> sep >> durationF >> sep >> origin >> sep >> dest >> sep >> ocPlaces;
+            Date dateF(date);
             Flight f (numberF,durationF,dateF,origin,dest, capP, ocPlaces);
             fls.push_back(f);
         }
@@ -107,13 +112,11 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
         getline(dataPl,nDS);
         int nDoneServ = stoi(nDS);
         for (int j = 0; j < nDoneServ; j++){
-            char sep1 = '/';
-            string l, typeS, nameS;
-            int d,m,y;
+            string l, typeS, nameS, date;
             getline(dataPl,l);
             stringstream ss1(l);
-            ss1 >> typeS >> sep >> d >> sep1 >> m >> sep1 >> y >> sep >> nameS;
-            Date dateS(d,m,y);
+            ss1 >> typeS >> sep >> date >> sep >> nameS;
+            Date dateS(date);
             Service sv(typeS, dateS, nameS);        //contrutor tem de estar public !
             doneServ.push_back(sv);
         }
@@ -121,13 +124,11 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
         getline(dataPl,nTDS);
         int nToDoServ = stoi(nTDS);
         for (int j = 0; j < nToDoServ; j++){
-            char sep1 = '/';
-            string l, typeS, nameS;
-            int d,m,y;
+            string l, typeS, nameS, date;
             getline(dataPl,l);
             stringstream ss1(l);
-            ss1 >> typeS >> sep >> d >> sep1 >> m >> sep1 >> y >> sep >> nameS;
-            Date dateS(d,m,y);
+            ss1 >> typeS >> sep >> date >> sep >> nameS;
+            Date dateS(date);
             Service sv(typeS, dateS, nameS);
             toDoServ.push(sv);
         }
@@ -237,6 +238,9 @@ void Company::settingsMenu(){
         cout << "7 - Show All Planes\n";
         cout << "8 - Add Plane\n";
         cout << "9 - Remove Plane\n";
+        cout << "10 - Show All Services\n";
+        cout << "11 - Add Service\n";
+        cout << "12 - Remove Service\n";
         cout << "0 - Return to Menu\n";
         cout << endl << "Option : ";
         cin >> setChoice;
@@ -294,6 +298,21 @@ void Company::settingsMenu(){
                 case 9 :
                     cout << "Removing Passenger ...\n\n";
                     removePlane();
+                    Sleep(500);
+                    break;
+                case 10 :
+                    cout << "Services : \n\n";
+                    showAllServices();
+                    Sleep(999);
+                    break;
+                case 11 :
+                    cout << "Adding Service ...\n\n";
+                    addService();
+                    Sleep(500);
+                    break;
+                case 12 :
+                    cout << "Removing Service ...\n\n";
+                    removeService();
                     Sleep(500);
                     break;
                 case 0 :
@@ -406,8 +425,16 @@ void Company::removePassenger() {
 }
 
 
-void Company::record(ofstream &dataPl, ofstream &dataPs) {
+void Company::record(ofstream &dataPl, ofstream &dataPs, ofstream &dataAir) {
     string sep = " - ";
+
+    //recording airports
+    dataAir << airports.size() << endl;
+    for (auto &a : airports) {
+        dataAir << a.getName() << sep << a.getTransportsSize() << endl;
+        for(auto &t : a.getTransports())
+            dataAir << t.getType() << sep << t.getDistance() << endl;
+    }
 
     //recording passengers
     dataPs << passengers.size() << endl;
@@ -423,13 +450,13 @@ void Company::record(ofstream &dataPl, ofstream &dataPs) {
         dataPl << p.getPlate() << sep << p.getType() << sep << p.getCapacity() << endl;
         dataPl << p.getFlights().size() << endl;
         for (auto &f : p.getFlights())
-            dataPl << f.getFlightNumber() << sep << f.getDepartureDate().getDate() << sep << f.getDuration() << sep << f.getOrigin() << sep << f.getDestination() << sep << f.getOccupiedPlaces() << endl;
+            dataPl << f.getFlightNumber() << sep << f.getDepartureDate().show() << sep << f.getDuration() << sep << f.getOrigin() << sep << f.getDestination() << sep << f.getOccupiedPlaces() << endl;
         dataPl << p.getDoneServ().size() << endl;
         for (auto &ds : p.getDoneServ())
-            dataPl << ds.getType() << sep << ds.getDate().getDate() << sep << ds.getEmployeeName() << endl;
+            dataPl << ds.getType() << sep << ds.getDate().show() << sep << ds.getEmployeeName() << endl;
         dataPl << p.getToDoServ().size() << endl;
         for (int i = 0; i < p.getToDoServ().size(); i++){
-            dataPl << p.getToDoServ().front().getType() << sep << p.getToDoServ().front().getDate().getDate() << sep << p.getToDoServ().front().getEmployeeName() << endl;
+            dataPl << p.getToDoServ().front().getType() << sep << p.getToDoServ().front().getDate().show() << sep << p.getToDoServ().front().getEmployeeName() << endl;
             p.getToDoServ().pop();
         }
     }
@@ -469,10 +496,10 @@ void Company::addFlight() {
         cout << "Plane not found !\n\n";
         return;
     }
-    cout << "Date (dd/mm/yyyy) of the Flight : "; cin >> date; cout << endl;
+    cout << "Date (dd/mm/yyyy_hh:mm:ss) of the Flight : "; cin >> date; cout << endl;
     d = Date(date);
     for (auto &f: it->getFlights()) {
-        if (f.getDepartureDate() == d) {
+        if (f.getDepartureDate().daysBetweenDates(d) == 0) {
             cout << "Date not available !\n\n";
             return;
         }
@@ -526,11 +553,11 @@ vector<Flight> Company::getFlightsToCheckIn() const {
     vector<Flight> flights;
     Date date = Date();
     for (auto pl : planes)
-        for (auto &f : pl.getFlights())     // verificar caso a data seja nos ultimos dias do mes !!!
-            if (date.getDay() - f.getDepartureDate().getDay() <= 1 && date.getMonth() == f.getDepartureDate().getMonth() && date.getYear() == f.getDepartureDate().getYear())
+        for (auto &f : pl.getFlights())
+            if (f.getDepartureDate().daysSince2020() <= 1 && f.getDepartureDate().daysSince2020() >= 0)
                 flights.push_back(f);
 
-    sort(flights,0,flights.size() - 1);       //maybe implement a quicksort!!! done
+    sort(flights,0,flights.size() - 1);
     return flights;
 }
 
@@ -547,7 +574,7 @@ void Company::buyTicket(Passenger &p) {
     // Perguntar qual é o número do voo que deseja
     cout << "What's the number of the flight you want to buy? ";
     do {
-        cin >> numFlight;
+        cin >> numFlight; validInput = true;
         for (unsigned l : numFlight) {
             if (!isdigit(l)) { validInput = false; break;}
         }
@@ -555,9 +582,21 @@ void Company::buyTicket(Passenger &p) {
             validInput = false;
             for (auto &pl: planes) {
                 auto f = find(pl.getFlights().begin(), pl.getFlights().end(), Flight(stoi(numFlight), 0, Date(), "", "", 0, 0));
-                if (f->getAvailablePlaces() > 0){
+                if (f != pl.getFlights().end() && f->getAvailablePlaces() > 0){
                     validInput = true; avaiablePlaces = true;
                     f->setOccupiedPlaces();
+                    cout << "Do you want to take package ";
+                    do {
+                        cout << "(y or n) : ";
+                        cin >> pack;
+                    }while (pack != "y" && pack != "Y" && pack != "n" && pack != "N" && !(cin.fail()));
+                    if (pack == "y" || pack == "Y") { ynPackage = true; }
+                    else { ynPackage = false; }
+
+                    // Create and setup the ticket
+                    auto it = find(passengers.begin(), passengers.end(), p);
+                    it->getTickets().push_back(Ticket(ynPackage, stoi(numFlight)));
+                    return;
                 }
             }
         }
@@ -565,17 +604,6 @@ void Company::buyTicket(Passenger &p) {
         else if (!avaiablePlaces) { cout << "The flight is full! Please choose another flight: "; }        //atençao aquiii !!
     } while (!validInput);
 
-    cout << "Do you want to take package ";
-    do {
-        cout << "(y or n) : ";
-        cin >> pack;
-    }while (pack != "y" && pack != "Y" && pack != "n" && pack != "N" && !(cin.fail()));
-    if (pack == "y" || pack == "Y") { ynPackage = true; }
-    else { ynPackage = false; }
-
-    // Create and setup the ticket
-    auto it = find(passengers.begin(), passengers.end(), p);
-    it->getTickets().push_back(Ticket(ynPackage, stoi(numFlight)));
 
 }
 
@@ -588,11 +616,9 @@ void Company::addService() {
     if (it == planes.end()){
         cout << "Plane not found !\n\n";
         return;
-        //cout << "Try again! The plate you selected must be wrong!"<< endl;
-        //addService();
     }
     cout << "What's the type of service you want to add (maintenance or cleaning)? "<< endl; cin >> nameService;
-    cout << "In which date you want to add that service? format(dd/mm/yyyy)"<< endl; cin >> dateService;
+    cout << "In which date you want to add that service? format(dd/mm/yyyy_hh:mm:ss)"<< endl; cin >> dateService;
     cout << "What´s the name of the employee responsible?" << endl; cin >> employeeService;
     Date b = Date(dateService);
     Service p = Service(nameService,b,employeeService);
@@ -600,7 +626,40 @@ void Company::addService() {
 }
 
 void Company::removeService() {
+    int plateNumber, opt;
+    list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
+    cout << "Say the plate of the plane you wish to remove a service:" << endl; cin >> plateNumber;
+    auto it = find(planes.begin(), planes.end(), Plane(plateNumber, "", 0,  fl, ds, tds));
+    if (it == planes.end()){
+        cout << "Plane not found !\n\n";
+        return;
 
+    }
+    vector<Service> helper = {};
+    while(!it->getToDoServ().empty()){
+        helper.push_back(it->getToDoServ().front());
+        it->getToDoServ().pop();
+    }
+    int m = 0;
+    for(auto &i: helper){
+        cout << m << " : " << i.getType() << " " << i.getDate().show() << " " << i.getEmployeeName() << endl;
+        m++;
+    }
+    cout << "Which service number you want to remove?" << endl;cin >> opt;
+    helper.erase(helper.begin()+opt);
+    for (auto &h: helper){
+        it->setToDoServ(h);
+    }
+}
+
+void Company::showAllServices() {
+    cout << "     Type     |        Date        |     Employee Name     " << endl;
+    cout << "===========================================================" << endl;
+    for (auto p : planes)
+        for (int i = 0; i < p.getToDoServ().size(); i++){
+            p.getToDoServ().front().show();
+            p.getToDoServ().pop();
+        }
 }
 
 

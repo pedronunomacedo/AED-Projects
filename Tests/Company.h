@@ -23,7 +23,7 @@ class Company {
 public:
     Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir);
     void mainMenu();
-    void record(ofstream &dataPl, ofstream &dataPs);
+    void record(ofstream &dataPl, ofstream &dataPs, ofstream &dataAir);
 private:
     list<Airport> airports;
     list<Plane> planes;
@@ -35,6 +35,7 @@ private:
     void showAllFlights();
     void showAllPassengers();
     void showAllPlanes();
+    void showAllServices();
     void buyTicket(Passenger &p);
     void addPlane();
     void addFlight();

@@ -24,16 +24,19 @@ int main(){
 
     planes.close();
     passengers.close();
+    airports.close();
 
     comp.mainMenu();     // start the program
 
     ofstream planesR ("PLANES.txt");
     ofstream passengersR ("PASSENGERS.txt");
+    ofstream airportsR ("AIRPORT.txt");
 
-    comp.record(planesR, passengersR);      // load the changes commit in the .txt file
+    comp.record(planesR, passengersR, airportsR);      // load the changes commit in the .txt file
 
     planesR.close();
     passengersR.close();
+    airportsR.close();
 
 
 

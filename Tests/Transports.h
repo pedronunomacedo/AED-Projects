@@ -6,7 +6,6 @@
 #define PLANE_CPP_TRANSPORTS_H
 
 #include <iostream>
-#include "Schedule.h"
 
 using namespace std;
 
@@ -14,9 +13,12 @@ class Transports {
 private:
     string type;
     unsigned int distance;
-    Schedule schedule;
 public:
-    //Transports(string type, unsigned int distance, Schedule schedule);
+    Transports(string type, unsigned int distance);
+    unsigned int getDistance() const;
+    string getType() const;
+    bool operator < (const  Transports & w) const {return distance < w.distance ; }
+    bool operator == (const  Transports & w) const {return distance == w.distance; }
 };
 
 

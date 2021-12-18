@@ -20,7 +20,7 @@ public:
     bool operator==(const Plane &p)const;
     list<Flight> &getFlights();
     queue<Service> getToDoServ();
-    queue<Service> setToDoServ(Service p);
+    void setToDoServ(Service &p);
     vector<Service> getDoneServ();
     unsigned int getCapacity()const;
     string getType()const;          //varios metodos podem ser definidos como const
