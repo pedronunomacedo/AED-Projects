@@ -23,7 +23,6 @@ string Service::getEmployeeName()const {
 }
 
 void Service::show() const {
-    cout << setw(floor((14.0-type.size())/2)+type.size()) << type << setw(ceil((14.0-type.size())/2)+1) << "|" << serviceDate.show() << " |" << setw( floor((23-employeeName.size())/2)+employeeName.size()-1 ) << employeeName << endl;
-    cout << "-----------------------------------------------------------" << endl;
+    cout << setw(floor((14.0-type.size())/2)+type.size()) << type << setw(ceil((14.0-type.size())/2)+1) << "|" << serviceDate.show() << " |" << setw( floor((23.0-employeeName.size())/2)+employeeName.size() ) << employeeName << setw(ceil((23.0-employeeName.size())/2)+1) << "|";
 }
 

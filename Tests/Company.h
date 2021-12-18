@@ -10,10 +10,15 @@
 #include "Flight.h"
 #include "Passenger.h"
 #include "Airport.h"
-#include <windows.h>            // !!!!!!!
 #include <fstream>
 #include <list>
 
+
+#if defined(_WIN32)
+#define CLEAR_MACRO() system("cls")
+#elif defined(unix) || defined(__unix__) || defined(__unix)
+#define CLEAR_MACRO() system("clear")
+#endif
 
 using namespace std;
 

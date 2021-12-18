@@ -3,12 +3,16 @@
 #include "Company.h"
 #include <string>
 #include <iostream>
-#include <iomanip>
 #include <sstream>
-#include <stack>
 #include <queue>
 #include <algorithm>
-using namespace std;
+
+void waitEnter(){
+    cin.clear();cin.ignore();
+    std::cout << std::endl << "Press enter to continue..." << std::endl;
+    std::string str;
+    std::getline(std::cin, str);
+}
 
 int BinarySearch(vector<Flight> v, int el){
     int left = 0, right = v.size() - 1;
@@ -196,8 +200,8 @@ bool Company::checkPassenger(Passenger &p){
 void Company::userMenu() {
     int userChoice;
     do{
-        system("cls");
-        cout << "User Menu\n\n";
+        CLEAR_MACRO();
+        cout << "\tUser Menu\n\n";
         cout << "1 - Register\n";
         cout << "2 - Check-in\n";
         cout << "3 - Buy Ticket\n";
@@ -207,37 +211,36 @@ void Company::userMenu() {
         cout << endl;
         if (cin.fail()) {
             cout << "Invalid Input !" << endl;
-            Sleep(400);
             cin.clear();
             cin.ignore(9999, '\n');
             userChoice = -1;
         }
         else {
+            CLEAR_MACRO();
             Passenger p;
             switch (userChoice) {
                 case 1 :
                     cout << "Register Passenger\n\n";
                     addPassenger();
-                    Sleep(500);
                     break;
                 case 2 :
                     if (checkPassenger(p)) {
-                        cout << "Welcome to Check-in\n";
+                        cout << "Welcome to Check-in\n\n";
                         checkIn(p);
                     }
-                    Sleep(500);
+                    waitEnter();
                     break;
                 case 3 :
-                    if (checkPassenger(p))
+                    if (checkPassenger(p)) {
+                        cout << "Buying Ticket \n\n";
                         buyTicket(p);
-
-                    Sleep(500);
+                    }
+                    waitEnter();
                     break;
                 case 0 :
                     break;
                 default:
                     cout << "Invalid Option! Try Again\n";
-                    Sleep(400);
                     break;
             }
         }
@@ -247,8 +250,8 @@ void Company::userMenu() {
 void Company::settingsMenu(){
     int setChoice;
     do{
-        system("cls");
-        cout << "Settings\n\n";
+        CLEAR_MACRO();
+        cout << "\tSettings\n\n";
         cout << "1 - Show All Flights\n";
         cout << "2 - Add Flight\n";
         cout << "3 - Remove Flight\n";
@@ -267,79 +270,70 @@ void Company::settingsMenu(){
         cout << endl;
         if (cin.fail()) {
             cout << "Invalid Input !" << endl;
-            Sleep(400);
             cin.clear();
             cin.ignore(9999, '\n');
             setChoice = -1;
         }
         else {
+            CLEAR_MACRO();
             string name; int ssn;
             switch (setChoice) {        // falta addFlight, removeFlight, showAllPlanes, ...('shows')
                 case 1 :
                     cout << "Flights : \n\n";
                     showAllFlights();
-                    Sleep(999);
+                    waitEnter();
                     break;
                 case 2 :
                     cout << "Adding Flight ...\n\n";
                     addFlight();
-                    Sleep(500);
                     break;
                 case 3 :
                     cout << "Removing Flight ...\n\n";
                     removeFlight();
-                    Sleep(500);
                     break;
                 case 4 :
                     cout << "Passengers : \n\n";
                     showAllPassengers();
-                    Sleep(999);
+                    waitEnter();
                     break;
                 case 5 :
                     cout << "Adding Passenger ...\n\n";
                     addPassenger();
-                    Sleep(500);
                     break;
                 case 6 :
                     cout << "Removing Passenger ...\n\n";
                     removePassenger();
-                    Sleep(500);
                     break;
                 case 7 :
                     cout << "Planes : \n\n";
                     showAllPlanes();
-                    Sleep(999);
+                    waitEnter();
                     break;
                 case 8 :
                     cout << "Adding Plane ...\n\n";
                     addPlane();
-                    Sleep(500);
                     break;
                 case 9 :
                     cout << "Removing Passenger ...\n\n";
                     removePlane();
-                    Sleep(500);
                     break;
                 case 10 :
                     cout << "Services : \n\n";
                     showAllServices();
-                    Sleep(999);
+                    waitEnter();
                     break;
                 case 11 :
                     cout << "Adding Service ...\n\n";
                     addService();
-                    Sleep(500);
                     break;
                 case 12 :
                     cout << "Removing Service ...\n\n";
                     removeService();
-                    Sleep(500);
                     break;
                 case 0 :
                     break;
                 default:
                     cout << "Invalid Option! Try Again\n";
-                    Sleep(400);
                     break;
             }
         }
@@ -350,8 +344,8 @@ void Company::settingsMenu(){
 void Company::mainMenu(){
     int choice;
     do{
-        system("cls");
-        cout << "Main Menu\n\n";
+        CLEAR_MACRO();
+        cout << "\tMain Menu\n\n";
         cout << "1 - User HelpDesk\n";
         cout << "2 - App Settings\n";
         cout << "0 - Exit App\n";
@@ -359,7 +353,7 @@ void Company::mainMenu(){
         cin >> choice;
         cout << endl;
         if (cin.fail()) {
-            cout << "Invalid Input !" << endl; Sleep(400);
+            cout << "Invalid Input !" << endl;
             cin.clear();
             cin.ignore(9999, '\n');
             choice = -1;
@@ -375,7 +369,6 @@ void Company::mainMenu(){
                     break;
                 default :
                     cout << "Invalid Option! Try Again\n";
-                    Sleep(400);
                     break;
             }
         }
@@ -475,7 +468,7 @@ void Company::record(ofstream &dataPl, ofstream &dataPs, ofstream &dataAir) {
         for (auto &ds : p.getDoneServ())
             dataPl << ds.getType() << sep << ds.getDate().show() << sep << ds.getEmployeeName() << endl;
         dataPl << p.getToDoServ().size() << endl;
-        for (int i = 0; i < p.getToDoServ().size(); i++){
+        while(!p.getToDoServ().empty()){
             dataPl << p.getToDoServ().front().getType() << sep << p.getToDoServ().front().getDate().show() << sep << p.getToDoServ().front().getEmployeeName() << endl;
             p.getToDoServ().pop();
         }
@@ -660,7 +653,7 @@ void Company::addService() {
     }
     cout << "What's the type of service you want to add (maintenance or cleaning)? "<< endl; cin >> nameService;
     cout << "In which date you want to add that service? format(dd/mm/yyyy_hh:mm:ss)"<< endl; cin >> dateService;
-    cout << "What´s the name of the employee responsible?" << endl; cin >> employeeService;
+    cout << "What's the name of the responsible employee ?" << endl; cin >> employeeService;
     Date b = Date(dateService);
     Service p = Service(nameService,b,employeeService);
     it->setToDoServ(p);
@@ -694,12 +687,14 @@ void Company::removeService() {
 }
 
 void Company::showAllServices() {
-    cout << "     Type     |        Date        |     Employee Name     " << endl;
-    cout << "===========================================================" << endl;
+    cout << "     Type     |        Date        |     Employee Name     |     Plane plate     " << endl;
+    cout << "=================================================================================" << endl;
     for (auto p : planes)
-        for (int i = 0; i < p.getToDoServ().size(); i++){
+        while(!p.getToDoServ().empty()){
             p.getToDoServ().front().show();
-            p.getToDoServ().pop();
+            p.getToDoServ().pop(); //21
+            cout << setw(floor((21-to_string(p.getPlate()).size())/2)+to_string(p.getPlate()).size()) << p.getPlate() << endl;
+            cout << "---------------------------------------------------------------------------------" << endl;
         }
 }
 
