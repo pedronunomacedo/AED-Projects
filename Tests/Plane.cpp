@@ -15,6 +15,11 @@ Plane::Plane(int plat, string typ, unsigned int cap, list<Flight> &plan, vector<
     toDoServices = toDo;
 }
 
+/**
+ * Compares two planes and checks if they are the same by checking the plates on both planes
+ * @param p (Second plane to compare)
+ * @return true if the planes are the same, false otherwise
+ */
 bool Plane::operator==(const Plane &p)const{
     if (plate == p.getPlate())
         return true;
@@ -25,10 +30,14 @@ list<Flight>& Plane::getFlights(){
     return flightPlan;
 }
 
-queue<Service> &Plane::getToDoServ(){            //adicionar passgem por referencia caso seja preciso adicionar mais serviços à queue !!
+queue<Service> &Plane::getToDoServ(){
     return toDoServices;
 }
 
+/**
+ * Adds a service to the queue of toDoServices
+ * @param p (service to add)
+ */
 void Plane::setToDoServ(Service &p) {
     toDoServices.push(p);
 }
@@ -49,6 +58,12 @@ unsigned int Plane::getCapacity()const{
     return capacity;
 }
 
+/**
+ * Checks if the wanted given date match to the service given date.
+ * @param maintenanceDay (first date to compare)
+ * @param wantedDay (second date to compare)
+ * @return true if the dates don't match, false otherwise
+ */
 bool Plane::checkIfIsAvailable( Date maintenanceDay, Date wantedDay )
 {
     if(maintenanceDay.show() == wantedDay.show())
@@ -78,6 +93,9 @@ void Plane::setType(string typ)
     type = typ;
 }
 
+/**
+ * Show the plane in the following format " Plane plate | Plane type | Plane capacity "
+ */
 void Plane::show() const {
     cout << setw(9) << plate << setw(7) << "|" << setw(9) << type << setw(6) << "|" << setw(10) << capacity << endl;
     cout << "------------------------------------------------" << endl;

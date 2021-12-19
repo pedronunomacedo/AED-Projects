@@ -7,7 +7,9 @@
 #include <cmath>
 
 
-
+/**
+ * Shows the closest transports to the airport and the distance (in Km) they are from the airport
+ */
 void Airport::showTransports() const {
     unsigned int dis; string typ;
     BSTItrIn<Transports> it(transports);
@@ -23,10 +25,20 @@ void Airport::showTransports() const {
     }
 }
 
+/**
+ * Adds the given transport to the BST (Binary Search Tree) of nearest transports to the airport
+ * @param typ (type of transport)
+ * @param dis (distance between the transport and the airport)
+ */
 void Airport::addTransport(string typ, unsigned int dis) {
     transports.insert(Transports(typ,dis));
 }
 
+/**
+ * Remove the transport with the characteristics given from the BST
+ * @param typ (type of transport)
+ * @param dis (distance between the transport and the airport)
+ */
 void Airport::removeTransport(string typ, unsigned int dis) {
     BSTItrIn<Transports> it(transports);
     while(!it.isAtEnd()){
@@ -38,7 +50,11 @@ void Airport::removeTransport(string typ, unsigned int dis) {
     }
 }
 
-
+/**
+ * Reads the information about the nearest transports from the AIRPORT.txt file and saves the
+ * information in a BST
+ * @param f (file with the information)
+ */
 void Airport::readFile(ifstream &f) {
     string line, name;
     string sep = " - ";
@@ -57,6 +73,10 @@ void Airport::readFile(ifstream &f) {
     }
 }
 
+/**
+ * Calculates the size of the BST
+ * @return Number of transports near to the airport
+ */
 int Airport::getTransportsSize() {
     int s = 0;
     BSTItrIn<Transports> it(transports);
@@ -67,10 +87,18 @@ int Airport::getTransportsSize() {
     return s;
 }
 
+/**
+ *
+ * @return Name of the airport
+ */
 string Airport::getName() {
     return name;
 }
 
+/**
+ * Saves the information located in the BST into a vector of transports
+ * @return Vector with the nearest transports to the airport
+ */
 vector<Transports> Airport::getTransports() {
     vector<Transports> transportes;
     BSTItrIn<Transports> it(transports);

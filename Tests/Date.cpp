@@ -63,13 +63,21 @@ int Date::getMinute() const {
 int Date::getSecond() const {
     return second;
 }
-// alterei para dar string ... pq precisava
+
+/**
+ * Puts the date in the format DD/MM/YYYY_HH:MM:SS
+ * @return String containing the date in the format referenced above
+ */
 string Date::show() const {
     stringstream ss;
     ss << setfill('0') << setw(2) << day << sep1 << setfill('0') << setw(2) << month << sep1 << setfill('0') << setw(2) << year << sep2 << setfill('0') << setw(2) << hour << sep3 << setfill('0') << setw(2) << minute << sep3 << setfill('0') << setw(2) << second;
     return ss.str();
 }
 
+/**
+ * Calculates the time (in days) from the pre-default date (01/01/2020) to the saved date
+ * @return Time between two dates in days
+ */
 int Date::daysSince2020() const {
     // Second date (d2) -> current date
     // Time on the current system
@@ -166,26 +174,14 @@ int Date::daysSince2020() const {
         n1 += d1[0]; // Add the current day of the month
     }
 
-
-    // =================================================================================================================================================================
-    /*
-    if ( ((n1-n2) == 1)) { // The client can make the check-in, one day before or on the day of the flight
-        cout << " Welcome abroad!\n";
-    }
-    else if (((n1-n2) == 0 && stoi(hour2) < hour) || ((n1-n2) == 0 && stoi(hour2) == hour && stoi(minute2) < minute) || ((n1-n2) == 0 && stoi(hour2) == hour && stoi(minute2) == minute && stoi(second2) <= second)) {
-        cout << " Welcome abroad!\n ";
-    }
-    else if ((n1-n2) > 1) { // The client cannot make the check-in, because is too early to do that
-        cout << " You can't make the check-in because its to early. Come back later!\n";
-    }
-    else { // The client is too late to do the check-in
-        cout << " I'm sorry! You miss your flight.\n";
-    }
-    */
-
     return (n1-n2); // (n1-n2) < 0 -> "Missed the flight!" ; 0 <= (n1-n2) <= 1 -> "Welcome abroad!" ; (n1-n2) > 1 -> "Its too early!"
 }
 
+/**
+ * Calculates the time (in days) between the saved date and a date given
+ * @param date2 (Second date)
+ * @return Time between two dates (in days)
+ */
 int Date::daysBetweenDates(Date &date2) {
     // First date (d1) -> Time saved on the object of the class in the variables (year, month, day, hour, minute, second)
     // Second date (d2) -> Given date (date2)

@@ -14,6 +14,12 @@ void waitEnter(){
     std::getline(std::cin, str);
 }
 
+/**
+ * Search for a specific flight in the flights BST
+ * @param v (vector of flights)
+ * @param el (number of the flight to search)
+ * @return Returns the middle if it exists, or 0 otherwise
+ */
 int BinarySearch(vector<Flight> v, int el){
     int left = 0, right = v.size() - 1;
     while (left <= right)
@@ -32,6 +38,11 @@ int BinarySearch(vector<Flight> v, int el){
     return 0;
 }
 
+/**
+ * Swap to flights
+ * @param a (flight number 1)
+ * @param b (flight number 2)
+ */
 void swap(Flight* a, Flight* b)
 {
     Flight t = *a;
@@ -72,6 +83,10 @@ void sort(vector<Flight> &v, int low, int high)
     }
 }
 
+/**
+ * Update the vector of flights, toDoServices and DoneServices in order not to have flights
+ * with an expired date
+ */
 void Company::update() {
     for (auto &p : planes) {
         for (auto f = p.getFlights().begin(); f != p.getFlights().end(); f++) {
@@ -88,6 +103,13 @@ void Company::update() {
     }
 }
 
+/**
+ * Initializes the company, reading the information from the PASSENGERS.txt, PLANES.txt and AIRPORT.txt
+ * and saving the airports, the planes, the servicesDone and the toDoServices.
+ * @param dataPl (text file which contains all the planes information and the respective services)
+ * @param dataPs (text file witch contains all the information about the passengers and the respective flights)
+ * @param dataAir (text file witch contains all the information about the nearest transports to the airport and the respective distance)
+ */
 Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
     //read airports !
     int nAirports;
@@ -136,7 +158,7 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
             stringstream ss1(l);
             ss1 >> typeS >> sep >> date >> sep >> nameS;
             Date dateS(date);
-            Service sv(typeS, dateS, nameS);        //contrutor tem de estar public !
+            Service sv(typeS, dateS, nameS);
             doneServ.push_back(sv);
         }
 
@@ -180,12 +202,14 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
         passengers.push_back(p);
     }
 
-    //call update method !
     update();
-
-
 }
 
+/**
+ * Checks if the passenger is already registered in the system
+ * @param p (passenger to verified)
+ * @return (true if is registed, or false otherwise)
+ */
 bool Company::checkPassenger(Passenger &p){
     int ssn;
     cout << "Enter your SSN : "; cin >> ssn;
@@ -197,6 +221,10 @@ bool Company::checkPassenger(Passenger &p){
     cout << "You are not registered !\nRegister first\n";
     return false;
 }
+
+/**
+ * Displays the menu options (User Menu)
+ */
 void Company::userMenu() {
     int userChoice;
     do{
@@ -247,6 +275,9 @@ void Company::userMenu() {
     }while (userChoice != 0);
 }
 
+/**
+ * Displays the settings Menu (menu to manage the airport)
+ */
 void Company::settingsMenu(){
     int setChoice;
     do{
@@ -340,7 +371,10 @@ void Company::settingsMenu(){
     } while (setChoice != 0);
 }
 
-
+/**
+ * Displays the main Menu of the program where you choose to use it as a client or as
+ * a manager of the airport
+ */
 void Company::mainMenu(){
     int choice;
     do{
@@ -375,7 +409,9 @@ void Company::mainMenu(){
     }while (choice != 0);
 }
 
-
+/**
+ * Shows all the flights of the airport
+ */
 void Company::showAllFlights() {
     cout << "     Flight Number     |     Flight Date     |     Flight Time     |     Origin     |     Destination     |     Avaiable Places" << endl;
     cout << "====================================================================================================================================" << endl;
@@ -390,6 +426,9 @@ void Company::showAllFlights() {
 
 }
 
+/**
+ * Shows all the passengers registered in the company system
+ */
 void Company::showAllPassengers() {
     cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
     cout << "======================================================================" << endl;
@@ -398,6 +437,9 @@ void Company::showAllPassengers() {
     }
 }
 
+/**
+ * Shows all the available planes with the respective type and capacity
+ */
 void Company::showAllPlanes() {
     cout << "     Plate     |     Type     |     Capacity     " << endl;
     cout << "================================================" << endl;
@@ -406,6 +448,9 @@ void Company::showAllPlanes() {
     }
 }
 
+/**
+ * Registers a passenger to the company system saving the respective name and SSN (Social Security Number)
+ */
 void Company::addPassenger() {
     int ssn; string name;
     do {
@@ -423,6 +468,9 @@ void Company::addPassenger() {
     passengers.push_back(Passenger(name,ssn, t));
 }
 
+/**
+ * Removes the register of a specific passenger from the company system
+ */
 void Company::removePassenger() {
     int ssn;
     string name;
@@ -437,7 +485,12 @@ void Company::removePassenger() {
     cout << "Passenger not found !\n";
 }
 
-
+/**
+ * Save the updated information and all changes made to the respective file
+ * @param dataPl
+ * @param dataPs
+ * @param dataAir
+ */
 void Company::record(ofstream &dataPl, ofstream &dataPs, ofstream &dataAir) {
     string sep = " - ";
 
@@ -475,6 +528,9 @@ void Company::record(ofstream &dataPl, ofstream &dataPs, ofstream &dataAir) {
     }
 }
 
+/**
+ * Adds a plane to the list of planes belonging to the company
+ */
 void Company::addPlane() {
     int plate;
     list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
@@ -490,6 +546,9 @@ void Company::addPlane() {
     cout << "Plane already exists !\n\n";
 }
 
+/**
+ * Removes a specific plane from the list of planes
+ */
 void Company::removePlane() {
     int plate;
     list<Flight> f{}; vector<Service> ds{}; queue<Service> tds{};
@@ -498,6 +557,10 @@ void Company::removePlane() {
     planes.remove(Plane(plate, "", 0, f, ds, tds));
 }
 
+/**
+ * Adds a flight to a specific plane, asking for the respective plan number and the departure date and
+ * adds it to the the respective flight plan
+ */
 void Company::addFlight() {
     list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
     int number, duration, plate;
@@ -530,6 +593,9 @@ void Company::addFlight() {
     it->getFlights().push_back(Flight(number, duration, d, ori, dest, it->getCapacity(), 0));
 }
 
+/**
+ * Removes a flight
+ */
 void Company::removeFlight() {
     int fNumber;
     cout << "Flight Number to remove : "; cin >> fNumber;
@@ -538,8 +604,11 @@ void Company::removeFlight() {
     }
 }
 
-
-
+/**
+ * Process the passenger's check-in, showing the flights that he can make the check-in.
+ * A passenger can only make the check-in before the flight leaves, within ne day f the departure date.
+ * @param p
+ */
 void Company::checkIn(Passenger &p) {
     vector<Flight> fls = getFlightsToCheckIn();
     vector <Ticket> readyCk;
@@ -582,7 +651,10 @@ void Company::checkIn(Passenger &p) {
 
 }
 
-
+/**
+ * Calculates the flights hat are ready to check-in comparing the departure date with the current date
+ * @return Flights that are ready to check-in
+ */
 vector<Flight> Company::getFlightsToCheckIn() const {
     vector<Flight> flights;
     Date date = Date();
@@ -595,6 +667,11 @@ vector<Flight> Company::getFlightsToCheckIn() const {
     return flights;
 }
 
+/**
+ * Manages the process of buying the passenger a ticket, showing all the flights available.
+ * Also checking if the desired flight as available seats.
+ * @param p (passenger that wants to buy a ticket)
+ */
 void Company::buyTicket(Passenger &p) {
     // Variables
     string numFlight, pack;
@@ -605,7 +682,7 @@ void Company::buyTicket(Passenger &p) {
     showAllFlights();
     cout << endl;
 
-    // Perguntar qual é o número do voo que deseja
+    // Asks for the number of the flight desired
     cout << "What's the number of the flight you want to buy? ";
     do {
         cin >> numFlight; validInput = true;
@@ -641,6 +718,10 @@ void Company::buyTicket(Passenger &p) {
 
 }
 
+/**
+ * Adds a service (maintenance or cleaning) to a specific plane, asking for the type,
+ * date and the responsible for the service
+ */
 void Company::addService() {
     string nameService, dateService, employeeService;
     int plateNumber;
@@ -659,6 +740,9 @@ void Company::addService() {
     it->setToDoServ(p);
 }
 
+/**
+ * Removes a service of a specific plane
+ */
 void Company::removeService() {
     int plateNumber, opt;
     list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
@@ -686,6 +770,9 @@ void Company::removeService() {
     }
 }
 
+/**
+ * Displays all the services and the respective plane
+ */
 void Company::showAllServices() {
     cout << "     Type     |        Date        |     Employee Name     |     Plane plate     " << endl;
     cout << "=================================================================================" << endl;

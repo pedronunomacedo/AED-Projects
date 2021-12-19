@@ -22,6 +22,9 @@ string Service::getEmployeeName()const {
     return employeeName;
 }
 
+/**
+ * Shows the service in the following format " Service type | Service date | Responsible employee name "
+ */
 void Service::show() const {
     cout << setw(floor((14.0-type.size())/2)+type.size()) << type << setw(ceil((14.0-type.size())/2)+1) << "|" << serviceDate.show() << " |" << setw( floor((23.0-employeeName.size())/2)+employeeName.size() ) << employeeName << setw(ceil((23.0-employeeName.size())/2)+1) << "|";
 }
