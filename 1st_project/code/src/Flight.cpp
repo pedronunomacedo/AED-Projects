@@ -2,7 +2,7 @@
 // Created by ruben on 24/11/2021.
 //
 
-#include "Flight.h"
+#include "../include/Flight.h"
 #include <iomanip>
 
 Flight::Flight(unsigned int number,unsigned int time,Date date,string ori,string des, unsigned int capacity, int occupiedPlaces){

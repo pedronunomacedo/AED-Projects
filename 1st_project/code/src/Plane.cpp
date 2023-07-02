@@ -2,7 +2,7 @@
 // Created by ruben on 24/11/2021.
 //
 
-#include "Plane.h"
+#include "../include/Plane.h"
 #include <iomanip>
 
 Plane::Plane(int plat, string typ, unsigned int cap, list<Flight> &plan, vector<Service> &done, queue<Service> &toDo)

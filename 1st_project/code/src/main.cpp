@@ -1,9 +1,10 @@
 #include <iostream>
-#include "Tests/Company.h"
 #include <istream>
 #include <string>
-#include "Tests/Date.h"
 #include <ctime>
+
+#include "../include/Company.h"
+#include "../include/Date.h"
 
 using namespace std;
 

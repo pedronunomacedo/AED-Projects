@@ -40,8 +40,7 @@ private:
     char sep1 = '/';
     char sep2 = '_';
     char sep3 = ':';
-    vector<int> monthsDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // monthsDays is not a leap year
+    vector<int> static monthsDays; // monthsDays is not a leap year
 };
-
 
 #endif //AIRPORTMANAGEMENT_AED_PROJECT_DATE_H

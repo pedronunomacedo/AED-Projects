@@ -20,7 +20,7 @@ private:
     int passengerSSN;
 public:
     Passenger(string &passengerName, int &passengerSSN, vector<Ticket> &t);
-    Passenger() : boughtTickets({}), passengerSSN(0), passengerName("") {};
+    Passenger() : boughtTickets(), passengerSSN(0), passengerName("") {};
     bool operator==(const Passenger &p)const;
     void setTicket(Ticket &ticket);
     bool ticketExist(int numFlight);

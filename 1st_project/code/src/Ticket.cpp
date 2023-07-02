@@ -2,7 +2,7 @@
 // Created by pedro on 01/12/2021.
 //
 
-#include "Ticket.h"
+#include "../include/Ticket.h"
 
 /**
  * Creates a new ticket

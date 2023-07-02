@@ -2,7 +2,7 @@
 // Created by ruben on 24/11/2021.
 //
 
-#include "Passenger.h"
+#include "../include/Passenger.h"
 #include <iomanip>
 
 

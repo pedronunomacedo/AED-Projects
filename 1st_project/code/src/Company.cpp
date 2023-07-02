@@ -1,6 +1,6 @@
 //
 // Created by pedro on 01/12
-#include "Company.h"
+#include "../include/Company.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -228,7 +228,7 @@ bool Company::checkPassenger(Passenger &p){
 void Company::userMenu() {
     int userChoice;
     do{
-        CLEAR_MACRO();
+        // CLEAR_MACRO();
         cout << "\tUser Menu\n\n";
         cout << "1 - Register\n";
         cout << "2 - Check-in\n";
@@ -244,7 +244,7 @@ void Company::userMenu() {
             userChoice = -1;
         }
         else {
-            CLEAR_MACRO();
+            // CLEAR_MACRO();
             Passenger p;
             switch (userChoice) {
                 case 1 :
@@ -281,7 +281,7 @@ void Company::userMenu() {
 void Company::settingsMenu(){
     int setChoice;
     do{
-        CLEAR_MACRO();
+        // CLEAR_MACRO();
         cout << "\tSettings\n\n";
         cout << "1 - Show All Flights\n";
         cout << "2 - Add Flight\n";
@@ -306,7 +306,7 @@ void Company::settingsMenu(){
             setChoice = -1;
         }
         else {
-            CLEAR_MACRO();
+            // CLEAR_MACRO();
             string name; int ssn;
             switch (setChoice) {        // falta addFlight, removeFlight, showAllPlanes, ...('shows')
                 case 1 :
@@ -378,7 +378,7 @@ void Company::settingsMenu(){
 void Company::mainMenu(){
     int choice;
     do{
-        CLEAR_MACRO();
+        // CLEAR_MACRO();
         cout << "\tMain Menu\n\n";
         cout << "1 - User HelpDesk\n";
         cout << "2 - App Settings\n";

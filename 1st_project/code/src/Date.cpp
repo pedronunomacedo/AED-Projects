@@ -2,11 +2,11 @@
 // Created by ruben on 18/12/2021.
 //
 
-#include "Date.h"
+#include "../include/Date.h"
 #include <sstream>
 
 Date::Date() {
-
+    monthsDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 }
 
 Date::Date(string &d) {
