@@ -18,6 +18,6 @@ make
 
 3. Finally, to run the projet do the command:
 ```bash
-./aed2122_trabalho2
+./AirportManagement_AED_Project
 ```
 
