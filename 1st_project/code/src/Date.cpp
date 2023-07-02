@@ -107,7 +107,7 @@ int Date::daysSince2020() const {
     else if (month2 == "Apr" || month2 == "Abr") month2 = "04";
     else if (month2 == "May" || month2 == "Mai") month2 = "05";
     else if (month2 == "Jun") month2 = "06";
-    else if (month2 == "Jul") month2 == "07";
+    else if (month2 == "Jul") month2 = "07";
     else if (month2 == "Aug" || month2 == "Ago") month2 = "08";
     else if (month2 == "Sep" || month2 == "Set") month2 = "09";
     else if (month2 == "Oct" || month2 == "Out") month2 = "10";
