@@ -57,7 +57,7 @@ void Airport::removeTransport(string typ, unsigned int dis) {
  */
 void Airport::readFile(ifstream &f) {
     string line, name;
-    string sep = " - ";
+    string sep = ",";
     int nT;
     getline(f, line);
     stringstream ss(line);

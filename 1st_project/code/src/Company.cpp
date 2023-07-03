@@ -6,9 +6,12 @@
 #include <sstream>
 #include <queue>
 #include <algorithm>
+#include <filesystem>
+
+using namespace std;
 
 void waitEnter(){
-    cin.clear();cin.ignore();
+    std::cin.clear();cin.ignore();
     std::cout << std::endl << "Press enter to continue..." << std::endl;
     std::string str;
     std::getline(std::cin, str);
@@ -114,9 +117,23 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
     //read airports !
     int nAirports;
     string nAir;
-    getline(dataAir, nAir);
-    nAirports = stoi(nAir);
+    std::getline(dataAir, nAir);
+
+    try
+    {
+        nAirports = stoi(nAir);
+        cout << "nAirports = " << nAirports << endl;
+    } catch(const std::exception& e) {
+        std::cerr << e.what() << '\n';
+    }
+
+    int lineCount = 0;
+    std::string line;
+
+    std::ifstream file("data/airports.csv");
+   
     for (int i = 0; i < nAirports; i++){
+        cout << "Reading airport " << i << endl;
         Airport a;
         a.readFile(dataAir);
         airports.push_back(a);
@@ -125,24 +142,44 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
     // read planes !
     int nPlanes;
     string nPl;
-    getline(dataPl,nPl);
-    nPlanes = stoi(nPl);
+    std::getline(dataPl,nPl);
+
+    try {
+        nPlanes = stoi(nPl);
+        cout << "nPlanes = " << nPlanes << endl;
+    } catch (invalid_argument &e) {
+        std::cout << "Invalid argument (139 - Company.cpp): " << e.what() << endl;
+        return;
+    }
+    
+    
     for (int i = 0; i < nPlanes; i++){
         list<Flight> fls;
         vector<Service> doneServ;
         queue<Service> toDoServ;
         string line, typeP, nFl, nDS, nTDS;
         int numberP, capP;
-        string sep = " - ";
-        getline(dataPl,line);
+        string sep = ",";
+        std::getline(dataPl,line);
         stringstream ss(line);
         ss >> numberP >> sep >> typeP >> sep >> capP;
-        getline(dataPl,nFl);
-        int nFlights = stoi(nFl);
+        std::getline(dataPl,nFl);
+        cout << "getline: " << nFl << endl;
+        int nFlights = 0;
+
+        try {
+            nFlights = stoi(nFl);
+            cout << "nFlights = " << nFlights << endl;
+        } catch (invalid_argument &e) {
+            std::cout << "Invalid argument (162 - Company.cpp): " << e.what() << endl;
+            return;
+        }
+        
+        
         for (int j = 0; j < nFlights; j++){
             string l, origin, dest, date;
             int numberF, durationF, ocPlaces;
-            getline(dataPl,l);
+            std::getline(dataPl,l);
             stringstream ss1(l);
             ss1 >> numberF >> sep >> date >> sep >> durationF >> sep >> origin >> sep >> dest >> sep >> ocPlaces;
             Date dateF(date);
@@ -150,11 +187,21 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
             fls.push_back(f);
         }
 
-        getline(dataPl,nDS);
-        int nDoneServ = stoi(nDS);
+        std::getline(dataPl,nDS);
+        int nDoneServ = 0;
+
+        try
+        {
+            nDoneServ = stoi(nDS);
+        } catch (invalid_argument &e) {
+            std::cout << "Invalid argument (183 - Company.cpp): " << e.what() << endl;
+            return;
+        }
+        
+        
         for (int j = 0; j < nDoneServ; j++){
             string l, typeS, nameS, date;
-            getline(dataPl,l);
+            std::getline(dataPl,l);
             stringstream ss1(l);
             ss1 >> typeS >> sep >> date >> sep >> nameS;
             Date dateS(date);
@@ -162,11 +209,11 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
             doneServ.push_back(sv);
         }
 
-        getline(dataPl,nTDS);
+        std::getline(dataPl,nTDS);
         int nToDoServ = stoi(nTDS);
         for (int j = 0; j < nToDoServ; j++){
             string l, typeS, nameS, date;
-            getline(dataPl,l);
+            std::getline(dataPl,l);
             stringstream ss1(l);
             ss1 >> typeS >> sep >> date >> sep >> nameS;
             Date dateS(date);
@@ -176,14 +223,24 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
         Plane p(numberP, typeP, capP , fls, doneServ, toDoServ);
         planes.push_back(p);
     }
+    
     // read passengers !
     string sep = " - ";
     string nP;
-    getline (dataPs, nP); // Number of passengers (first line of the file)
-    int nPs = stoi(nP);
+    std::getline(dataPs, nP); // Number of passengers (first line of the file)
+
+    int nPs = 0;
+    try {
+        nPs = stoi(nP);
+    } catch (invalid_argument &e) {
+        std::cout << "Invalid argument (124 - Company.cpp): " << e.what() << endl;
+        return;
+    }
+    
+    
     for (int i = 0; i < nPs; i++){
         string line;
-        getline(dataPs, line); // Next passenger
+        std::getline(dataPs, line); // Next passenger
         stringstream ss(line);
         vector<Ticket> tickets;
         int ssn, nTickets;
@@ -193,7 +250,7 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
             int nF;
             int pck;
             string line1;
-            getline(dataPs, line1);
+            std::getline(dataPs, line1);
             stringstream ss1(line1);
             ss1 >> pck >> sep >> nF;
             tickets.push_back(Ticket(pck, nF));
@@ -212,13 +269,13 @@ Company::Company(ifstream &dataPl, ifstream &dataPs, ifstream &dataAir) {
  */
 bool Company::checkPassenger(Passenger &p){
     int ssn;
-    cout << "Enter your SSN : "; cin >> ssn;
+    std::cout << "Enter your SSN : "; cin >> ssn;
     for (auto &k : passengers)
         if (k.getSSN() == ssn) {
             p = k;
             return true;
         }
-    cout << "You are not registered !\nRegister first\n";
+    std::cout << "You are not registered !\nRegister first\n";
     return false;
 }
 
@@ -229,18 +286,18 @@ void Company::userMenu() {
     int userChoice;
     do{
         // CLEAR_MACRO();
-        cout << "\tUser Menu\n\n";
-        cout << "1 - Register\n";
-        cout << "2 - Check-in\n";
-        cout << "3 - Buy Ticket\n";
-        cout << "0 - Return to Menu\n";
-        cout << endl << "Option : ";
-        cin >> userChoice;
-        cout << endl;
-        if (cin.fail()) {
-            cout << "Invalid Input !" << endl;
-            cin.clear();
-            cin.ignore(9999, '\n');
+        std::cout << "\tUser Menu\n\n";
+        std::cout << "1 - Register\n";
+        std::cout << "2 - Check-in\n";
+        std::cout << "3 - Buy Ticket\n";
+        std::cout << "0 - Return to Menu\n";
+        std::cout << endl << "Option : ";
+        std::cin >> userChoice;
+        std::cout << endl;
+        if (std::cin.fail()) {
+            std::cout << "Invalid Input !" << endl;
+            std::cin.clear();
+            std::cin.ignore(9999, '\n');
             userChoice = -1;
         }
         else {
@@ -248,19 +305,19 @@ void Company::userMenu() {
             Passenger p;
             switch (userChoice) {
                 case 1 :
-                    cout << "Register Passenger\n\n";
+                    std::cout << "Register Passenger\n\n";
                     addPassenger();
                     break;
                 case 2 :
                     if (checkPassenger(p)) {
-                        cout << "Welcome to Check-in\n\n";
+                        std::cout << "Welcome to Check-in\n\n";
                         checkIn(p);
                     }
                     waitEnter();
                     break;
                 case 3 :
                     if (checkPassenger(p)) {
-                        cout << "Buying Ticket \n\n";
+                        std::cout << "Buying Ticket \n\n";
                         buyTicket(p);
                     }
                     waitEnter();
@@ -268,7 +325,7 @@ void Company::userMenu() {
                 case 0 :
                     break;
                 default:
-                    cout << "Invalid Option! Try Again\n";
+                    std::cout << "Invalid Option! Try Again\n";
                     break;
             }
         }
@@ -282,27 +339,27 @@ void Company::settingsMenu(){
     int setChoice;
     do{
         // CLEAR_MACRO();
-        cout << "\tSettings\n\n";
-        cout << "1 - Show All Flights\n";
-        cout << "2 - Add Flight\n";
-        cout << "3 - Remove Flight\n";
-        cout << "4 - Show All Passengers\n";
-        cout << "5 - Add Passenger\n";
-        cout << "6 - Remove Passenger\n";
-        cout << "7 - Show All Planes\n";
-        cout << "8 - Add Plane\n";
-        cout << "9 - Remove Plane\n";
-        cout << "10 - Show All Services\n";
-        cout << "11 - Add Service\n";
-        cout << "12 - Remove Service\n";
-        cout << "0 - Return to Menu\n";
-        cout << endl << "Option : ";
-        cin >> setChoice;
-        cout << endl;
-        if (cin.fail()) {
-            cout << "Invalid Input !" << endl;
-            cin.clear();
-            cin.ignore(9999, '\n');
+        std::cout << "\tSettings\n\n";
+        std::cout << "1 - Show All Flights\n";
+        std::cout << "2 - Add Flight\n";
+        std::cout << "3 - Remove Flight\n";
+        std::cout << "4 - Show All Passengers\n";
+        std::cout << "5 - Add Passenger\n";
+        std::cout << "6 - Remove Passenger\n";
+        std::cout << "7 - Show All Planes\n";
+        std::cout << "8 - Add Plane\n";
+        std::cout << "9 - Remove Plane\n";
+        std::cout << "10 - Show All Services\n";
+        std::cout << "11 - Add Service\n";
+        std::cout << "12 - Remove Service\n";
+        std::cout << "0 - Return to Menu\n";
+        std::cout << endl << "Option : ";
+        std::cin >> setChoice;
+        std::cout << endl;
+        if (std::cin.fail()) {
+            std::cout << "Invalid Input !" << endl;
+            std::cin.clear();
+            std::cin.ignore(9999, '\n');
             setChoice = -1;
         }
         else {
@@ -310,61 +367,61 @@ void Company::settingsMenu(){
             string name; int ssn;
             switch (setChoice) {        // falta addFlight, removeFlight, showAllPlanes, ...('shows')
                 case 1 :
-                    cout << "Flights : \n\n";
+                    std::cout << "Flights : \n\n";
                     showAllFlights();
                     waitEnter();
                     break;
                 case 2 :
-                    cout << "Adding Flight ...\n\n";
+                    std::cout << "Adding Flight ...\n\n";
                     addFlight();
                     break;
                 case 3 :
-                    cout << "Removing Flight ...\n\n";
+                    std::cout << "Removing Flight ...\n\n";
                     removeFlight();
                     break;
                 case 4 :
-                    cout << "Passengers : \n\n";
+                    std::cout << "Passengers : \n\n";
                     showAllPassengers();
                     waitEnter();
                     break;
                 case 5 :
-                    cout << "Adding Passenger ...\n\n";
+                    std::cout << "Adding Passenger ...\n\n";
                     addPassenger();
                     break;
                 case 6 :
-                    cout << "Removing Passenger ...\n\n";
+                    std::cout << "Removing Passenger ...\n\n";
                     removePassenger();
                     break;
                 case 7 :
-                    cout << "Planes : \n\n";
+                    std::cout << "Planes : \n\n";
                     showAllPlanes();
                     waitEnter();
                     break;
                 case 8 :
-                    cout << "Adding Plane ...\n\n";
+                    std::cout << "Adding Plane ...\n\n";
                     addPlane();
                     break;
                 case 9 :
-                    cout << "Removing Passenger ...\n\n";
+                    std::cout << "Removing Passenger ...\n\n";
                     removePlane();
                     break;
                 case 10 :
-                    cout << "Services : \n\n";
+                    std::cout << "Services : \n\n";
                     showAllServices();
                     waitEnter();
                     break;
                 case 11 :
-                    cout << "Adding Service ...\n\n";
+                    std::cout << "Adding Service ...\n\n";
                     addService();
                     break;
                 case 12 :
-                    cout << "Removing Service ...\n\n";
+                    std::cout << "Removing Service ...\n\n";
                     removeService();
                     break;
                 case 0 :
                     break;
                 default:
-                    cout << "Invalid Option! Try Again\n";
+                    std::cout << "Invalid Option! Try Again\n";
                     break;
             }
         }
@@ -379,17 +436,17 @@ void Company::mainMenu(){
     int choice;
     do{
         // CLEAR_MACRO();
-        cout << "\tMain Menu\n\n";
-        cout << "1 - User HelpDesk\n";
-        cout << "2 - App Settings\n";
-        cout << "0 - Exit App\n";
-        cout << endl << "Option : ";
-        cin >> choice;
-        cout << endl;
-        if (cin.fail()) {
-            cout << "Invalid Input !" << endl;
-            cin.clear();
-            cin.ignore(9999, '\n');
+        std::cout << "\tMain Menu\n\n";
+        std::cout << "1 - User HelpDesk\n";
+        std::cout << "2 - App Settings\n";
+        std::cout << "0 - Exit App\n";
+        std::cout << endl << "Option : ";
+        std::cin >> choice;
+        std::cout << endl;
+        if (std::cin.fail()) {
+            std::cout << "Invalid Input !" << endl;
+            std::cin.clear();
+            std::cin.ignore(9999, '\n');
             choice = -1;
         }else {
             switch (choice) {
@@ -402,7 +459,7 @@ void Company::mainMenu(){
                 case 0 :
                     break;
                 default :
-                    cout << "Invalid Option! Try Again\n";
+                    std::cout << "Invalid Option! Try Again\n";
                     break;
             }
         }
@@ -413,8 +470,8 @@ void Company::mainMenu(){
  * Shows all the flights of the airport
  */
 void Company::showAllFlights() {
-    cout << "     Flight Number     |     Flight Date     |     Flight Time     |     Origin     |     Destination     |     Avaiable Places" << endl;
-    cout << "====================================================================================================================================" << endl;
+    std::cout << "     Flight Number     |     Flight Date     |     Flight Time     |     Origin     |     Destination     |     Avaiable Places" << endl;
+    std::cout << "====================================================================================================================================" << endl;
     vector<Flight> fls;
     for (auto &k : planes)
         for (auto &i : k.getFlights())
@@ -430,8 +487,8 @@ void Company::showAllFlights() {
  * Shows all the passengers registered in the company system
  */
 void Company::showAllPassengers() {
-    cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
-    cout << "======================================================================" << endl;
+    std::cout << "     Name     |     SSN     |      Package     |      Flight Number" << endl;
+    std::cout << "======================================================================" << endl;
     for (auto &k : passengers) {
         k.show();
     }
@@ -441,8 +498,8 @@ void Company::showAllPassengers() {
  * Shows all the available planes with the respective type and capacity
  */
 void Company::showAllPlanes() {
-    cout << "     Plate     |     Type     |     Capacity     " << endl;
-    cout << "================================================" << endl;
+    std::cout << "     Plate     |     Type     |     Capacity     " << endl;
+    std::cout << "================================================" << endl;
     for (Plane &p : planes) {
         p.show();
     }
@@ -454,16 +511,16 @@ void Company::showAllPlanes() {
 void Company::addPassenger() {
     int ssn; string name;
     do {
-        cout << "Passenger SSN to add (xxxxxxxxx) : ";
-        cin >> ssn;
-        cin.ignore();
+        std::cout << "Passenger SSN to add (xxxxxxxxx) : ";
+        std::cin >> ssn;
+        std::cin.ignore();
     }while (to_string(ssn).size() != 9);
     for (auto &k : passengers)
         if (k.getSSN() == ssn){
-            cout << "SSN already in use !\n";
+            std::cout << "SSN already in use !\n";
             return;
         }
-    cout << "Passenger FirstName to add : "; getline(cin,name);
+    std::cout << "Passenger FirstName to add : "; std::getline(cin,name);
     vector<Ticket> t{};
     passengers.push_back(Passenger(name,ssn, t));
 }
@@ -474,15 +531,15 @@ void Company::addPassenger() {
 void Company::removePassenger() {
     int ssn;
     string name;
-    cout << "Passenger SSN to remove : ";
-    cin >> ssn;
+    std::cout << "Passenger SSN to remove : ";
+    std::cin >> ssn;
     for (auto &k : passengers)
         if (k.getSSN() == ssn) {
             vector<Ticket> t;
             passengers.remove(Passenger(name, ssn, t));
             return;
         }
-    cout << "Passenger not found !\n";
+    std::cout << "Passenger not found !\n";
 }
 
 /**
@@ -534,16 +591,16 @@ void Company::record(ofstream &dataPl, ofstream &dataPs, ofstream &dataAir) {
 void Company::addPlane() {
     int plate;
     list<Flight> fl{}; vector<Service> ds{}; queue<Service> tds{};
-    cout << "Plane plate to add : "; cin >> plate; cout << endl;
+    std::cout << "Plane plate to add : "; cin >> plate; cout << endl;
     if (find(planes.begin(), planes.end(), Plane(plate, "", 0,  fl, ds, tds)) == planes.end()) {
         int cap;
         string type;
-        cout << "Type : "; cin >> type; cout << endl;
-        cout << "Capacity : "; cin >> cap; cout << endl;
+        std::cout << "Type : "; std::cin >> type; std::cout << endl;
+        std::cout << "Capacity : "; std::cin >> cap; std::cout << endl;
         planes.push_back(Plane(plate, type, cap, fl, ds, tds));
         return;
     }
-    cout << "Plane already exists !\n\n";
+    std::cout << "Plane already exists !\n\n";
 }
 
 /**
@@ -552,8 +609,8 @@ void Company::addPlane() {
 void Company::removePlane() {
     int plate;
     list<Flight> f{}; vector<Service> ds{}; queue<Service> tds{};
-    cout << "Plane plate to remove : ";
-    cin >> plate;
+    std::cout << "Plane plate to remove : ";
+    std::cin >> plate;
     planes.remove(Plane(plate, "", 0, f, ds, tds));
 }
 
@@ -566,7 +623,7 @@ void Company::addFlight() {
     int number, duration, plate;
     string ori, dest, date;
     Date d;
-    cout << "Plate number of the plane you want to add a Flight : "; cin >> plate; cout << endl;
+    std::cout << "Plate number of the plane you want to add a Flight : "; cin >> plate; cout << endl;
     auto it = find(planes.begin(), planes.end(), Plane(plate, "", 0,  fl, ds, tds));
     if (it == planes.end()){
         cout << "Plane not found !\n\n";
@@ -576,7 +633,7 @@ void Company::addFlight() {
     d = Date(date);
     for (auto &f: it->getFlights()) {
         if (f.getDepartureDate().daysBetweenDates(d) == 0) {
-            cout << "Date not available !\n\n";
+            std::cout << "Date not available !\n\n";
             return;
         }
     }
@@ -587,9 +644,9 @@ void Company::addFlight() {
             cnt ++;
         }
     if (cnt > 0) { cout << "Flight number already in use\n "; return; }
-    cout << "Duration : "; cin >> duration; cout << endl;
-    cout << "Origin : "; cin >> ori; cout << endl;
-    cout << "Destination : "; cin >> dest; cout << endl;
+    std::cout << "Duration : "; std::cin >> duration; std::cout << endl;
+    std::cout << "Origin : "; std::cin >> ori; std::cout << endl;
+    std::cout << "Destination : "; std::cin >> dest; std::cout << endl;
     it->getFlights().push_back(Flight(number, duration, d, ori, dest, it->getCapacity(), 0));
 }
 
@@ -692,7 +749,15 @@ void Company::buyTicket(Passenger &p) {
         if (validInput) {
             validInput = false;
             for (auto &pl: planes) {
-                auto f = find(pl.getFlights().begin(), pl.getFlights().end(), Flight(stoi(numFlight), 0, Date(), "", "", 0, 0));
+                auto f = pl.getFlights().begin();
+
+                try {
+                    f = find(pl.getFlights().begin(), pl.getFlights().end(), Flight(stoi(numFlight), 0, Date(), "", "", 0, 0));
+                } catch (invalid_argument &e) {
+                    cout << "Invalid argument (124 - Company.cpp): " << e.what() << endl;
+                    return;
+                }
+
                 if (f != pl.getFlights().end() && f->getAvailablePlaces() > 0){
                     validInput = true; avaiablePlaces = true;
                     f->setOccupiedPlaces();
